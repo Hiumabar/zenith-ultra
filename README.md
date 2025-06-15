@@ -1,52 +1,56 @@
 <h1 align="center">
-  🌌 Next Terra Studio
+  <img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" width="100" />
+  <br/>🌌 Next Terra Studio 🌌
 </h1>
-<p align="center"><em>“Expanding Worlds Through Code, Design, and Imagination.”</em></p>
+<p align="center">
+  <em>“Expanding Worlds Through Code, Design, and Imagination.”</em>
+</p>
 
 <p align="center">
-  <img src="https://i.gifer.com/7VE.gif" alt="Galaxy Animation" width="300"/>
+  <img src="https://media.giphy.com/media/fAnEC88LccN7a/giphy.gif" width="600" alt="Stars and Galaxy"/>
 </p>
 
 ---
 
 ## 🪐 Tentang Kami | About Us
 
-**Next Terra Studio** adalah studio kreatif digital yang menjelajahi berbagai dunia melalui teknologi dan seni.  
-We are a creative studio crafting digital universes through code, visuals, and imagination.
+**Next Terra Studio** adalah studio kreatif galaksi digital yang menjelajahi berbagai dunia melalui teknologi dan seni.  
+Kami adalah tim penjelajah ruang ide, membangun dunia lewat kode, visual, dan komunitas.
 
-Kami fokus di bidang:
+> 🚀 *"Explore, Create, Conquer the Digital Cosmos."*
 
-- 🚀 Bot & Game Development
-- 🌠 Digital Tools & Educational Web
-- 🧱 Minecraft Art & Pixel Projects
-- 🎨 UI/UX Design with futuristic vibes
+Kami fokus di:
+- 💫 Pengembangan Game & Bot AI
+- 🌠 Web Edukasi & Tools Interaktif
+- 🧱 Texture Pack Minecraft & Pixel Art
+- 🧬 Eksperimen UI/UX Futuristik
 
 ---
 
 ## 🌌 Proyek Unggulan | Featured Projects
 
-| 🚧 Proyek | ✨ Deskripsi | 🚀 Status |
+| 🚧 Proyek | 🌟 Deskripsi | 🛰️ Status |
 |----------|-------------|-----------|
-| 🎧 **Next Terra Music Bot** | Bot musik Discord dengan kontrol interaktif dan pencarian otomatis. <br/>Discord music bot with full interactivity. | ✅ Aktif |
-| 📊 **Konverter Sistem Bilangan** | Web konversi biner, oktal, heksa, dan desimal + penjelasan. <br/>Number system converter with step-by-step logic. | 🔧 Beta |
-| 🧱 **Fantasy Minecraft 32x32 Pack** | Texture pack PvP fantasy untuk Minecraft resolusi tinggi. <br/>32x32 fantasy-themed PvP texture pack. | 🎨 On Progress |
-| 🧟 **WA Creeper Horror Sticker** | Stiker WhatsApp pixel-art bertema Creeper horor. <br/>Creeper horror WA sticker pack (pixel art). | ✅ Rilis |
-| 🎮 **Survival Death Game** | Cerita permainan sadis ala Alice in Borderland x Squid Game. <br/>Deadly survival game narrative & concept. | ✍️ Development |
-| ⚡ **Pokémon All-in-One Server** | Server Discord lengkap: RP, Pokédex, TCG, Anime. <br/>Complete Pokémon Discord hub. | ✅ Online |
+| 🎧 **Next Terra Music Bot** | Bot musik Discord futuristik dengan kontrol tombol & pencarian otomatis. | ✅ Aktif |
+| 📊 **Number System Converter** | Web edukasi interaktif untuk biner, desimal, oktal, dan heksa + langkah-langkah. | 🧪 Beta |
+| 🧱 **Fantasy PvP Minecraft Pack** | Texture pack resolusi tinggi bertema sihir dan pedang 32x32. | 🎨 Dalam Produksi |
+| 🧟 **WA Creeper Horror Stickers** | 5 stiker pixel art menyeramkan dari Creeper untuk WhatsApp. | ✅ Rilis |
+| 🕹️ **Survival Death Game** | Konsep game menegangkan ala Squid Game x Alice in Borderland. | ✍️ Konsep |
+| ⚡ **Pokémon All-in-One Server** | Server Discord Pokémon: RP, Pokédex, Anime, TCG. | ✅ Online |
 
 ---
 
-## 🌠 Visi Kami | Our Vision
+## 🌠 Visi Galaksi Kami
 
-> "Menjadi galaksi digital bagi para penjelajah kreatif yang ingin membangun dunia baru melalui teknologi, seni, dan kolaborasi."  
-> "To be a digital galaxy where creators explore, build, and connect through innovation."
+> 🪐 **Kami ingin menciptakan dunia digital baru yang seru, edukatif, dan penuh imajinasi.**  
+> Teknologi adalah roket. Imajinasi adalah bahan bakarnya. Bersama kita menjelajahi bintang 🚀
 
 ---
 
-## 👾 Gabung Komunitas | Join the Community
+## 🧑‍🚀 Bergabunglah ke Armada Next Terra
 
-Bergabunglah dan terbang bersama kami 🚀  
-Join our community to build & explore together:
+Gabung dan terbang bareng kami dalam misi kreatif multi-dimensi!  
+Support server komunitas kami:
 
 [![Discord](https://img.shields.io/discord/1245680140578041876?label=Join%20Discord&logo=discord&color=7289DA)](https://discord.gg/sPTmFZnJcz)
 
@@ -54,19 +58,22 @@ Join our community to build & explore together:
 
 ---
 
-## 📬 Kontak Kami | Contact Us
+## 📡 Kontak & Sosial Media
 
-- 🌐 Website: [nextterra.dev](https://nextterra.dev) _(Coming Soon)_
+📞 **Kontak Langsung**  
+- 💬 WhatsApp: [Chat via WA](https://wa.me/6281234567890)  
 - 📧 Email: [nextterra@email.com](mailto:nextterra@email.com)
+
+🌐 **Sosial Media Galaksi**  
+- 🌍 Website: `nextterra.dev` _(Coming Soon)_  
+- 📸 Instagram: [@nextterra.studio](https://instagram.com/nextterra.studio)  
+- 🎵 TikTok: [@nextterra.studio](https://tiktok.com/@nextterra.studio)  
+- 🐦 X (Twitter): [@NextTerraX](https://x.com/NextTerraX)  
 - 💬 Discord: `NextTerra#2025`
-- 📱 WhatsApp: [Chat via WhatsApp](https://wa.me/6281234567890)
-- 📸 Instagram: [@nextterra.studio](https://instagram.com/nextterra.studio)
-- 🎵 TikTok: [@nextterra.studio](https://tiktok.com/@nextterra.studio)
-- 🐦 X (Twitter): [@NextTerraX](https://x.com/NextTerraX)
 
 ---
 
 <p align="center">
-  <img src="https://i.gifer.com/3ORI.gif" alt="Stars" width="160" /><br/>
-  <strong>Next Terra Studio</strong> — <em>Your Universe of Ideas</em> 🌌
+  <img src="https://media.giphy.com/media/3o7btQ4D44pZRCx3iY/giphy.gif" width="160" /><br/>
+  <strong>Next Terra Studio</strong> — <em>Where Every Pixel Is a Planet</em> 🪐
 </p>
