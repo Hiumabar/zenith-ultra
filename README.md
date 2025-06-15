@@ -1,66 +1,72 @@
-<h1 align="center">🌌 Next Terra Studio</h1>
+<h1 align="center">
+  🌌 Next Terra Studio
+</h1>
 <p align="center"><em>“Expanding Worlds Through Code, Design, and Imagination.”</em></p>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/xTiTnz9Xttb5TuRQ1W/giphy.gif" width="300" alt="Next Terra Studio Banner" />
+  <img src="https://i.gifer.com/7VE.gif" alt="Space Animation" width="300"/>
 </p>
 
 ---
 
-## 🌟 Tentang Kami
+## 🪐 Tentang Kami
 
-**Next Terra Studio** adalah ruang eksplorasi kreatif dan teknologi. Kami adalah komunitas independen yang bergerak di bidang:
+**Next Terra Studio** adalah laboratorium kreatif digital yang berbasis komunitas, berfokus pada pengembangan karya yang menyatukan teknologi dan imajinasi.
 
-- 🎮 Pengembangan Game & Discord Bot
-- 🧠 Edukasi Digital & Tools Interaktif
-- 🌐 Web Development & UI/UX Modern
-- 🎨 Pixel Art, Texture Pack & Desain Visual
+Kami menjelajah berbagai dimensi kreatif:
 
-Dengan semangat *"Build what matters, create what inspires"* — kami membuat proyek-proyek yang seru, mendidik, dan menyenangkan.
+- 🚀 Pengembangan Game & Bot AI
+- 🌠 Edukasi Teknologi & Tools Interaktif
+- 🪄 Desain Pixel Art & Texture Pack Minecraft
+- 🧠 Proyek Eksperimental Web & UI/UX futuristik
 
----
-
-## 🚧 Proyek-Proyek Unggulan
-
-| Nama Proyek | Deskripsi | Status |
-|-------------|-----------|--------|
-| 🎧 **Next Terra Music Bot** | Bot Discord musik dengan UI interaktif, tombol play/pause, dan antrian lagu | ✅ Live |
-| 📊 **Konverter Sistem Bilangan** | Web edukasi untuk konversi Biner, Desimal, Oktal, dan Heksadesimal lengkap dengan penjelasan | 🔧 Beta |
-| 🧱 **Fantasy 32x32 Minecraft Pack** | Texture pack bertema PvP Fantasy untuk Minecraft versi terbaru | 🎨 On Progress 
-| 🕹️ **Pokémon All-in-One Server** | Server Discord Pokémon lengkap dengan RP, TCG, Anime, Game, dan Pokédex custom | ✅ Live |
+Dengan tema galaksi dan eksplorasi tanpa batas, kami percaya setiap ide bisa menjadi semesta baru.
 
 ---
 
-## 🚀 Visi Kami
+## 🌌 Proyek-proyek Galaksi Kami
 
-> "Menjadi wadah anak-anak kreatif yang ingin menjelajah dunia digital melalui karya yang berdampak, menyenangkan, dan memajukan."
-
-Kami percaya bahwa teknologi bukan hanya alat, tapi media untuk menyampaikan cerita, menyatukan komunitas, dan membangun masa depan.
-
----
-
-## 👥 Bergabung & Kolaborasi
-
-Kami terbuka untuk kolaborasi, ide, dan partner project!  
-Silakan hubungi kami jika kamu:
-
-- Punya ide project dan butuh tim dev
-- Ingin belajar ngoding sambil bikin project real
-- Mau bikin produk digital seperti bot, game, atau website
+| 🚧 Proyek | ✨ Deskripsi | 🚀 Status |
+|----------|-------------|-----------|
+| 🎧 **Next Terra Music Bot** | Bot musik Discord dengan tombol interaktif, antrian lagu, dan pencarian otomatis. | ✅ Aktif |
+| 🌐 **Konverter Sistem Bilangan** | Web edukatif untuk konversi biner, oktal, heksadesimal, dan desimal dengan penjelasan langkah. | 🔧 Beta |
+| 🧱 **Fantasy Minecraft Pack 32x32** | Texture pack bertema PvP fantasi untuk Minecraft. | 🎨 Dalam Proses |
+| ⚡ **Pokémon All-in-One Server** | Server Discord Pokémon dengan fitur lengkap: RP, Pokédex, TCG, Game. | ✅ Online |
 
 ---
 
-## 📬 Kontak Kami
+## 🌠 Visi Kosmik Kami
+
+> "Menjadi galaksi digital bagi para penjelajah kreatif yang ingin membangun dunia baru melalui teknologi, seni, dan kolaborasi."
+
+Kami menciptakan bukan hanya untuk hari ini, tapi untuk masa depan dunia digital yang luas dan penuh kemungkinan.
+
+---
+
+## 👾 Bergabunglah di Komunitas Kami!
+
+✨ Punya ide project seru?  
+🚀 Ingin belajar coding sambil bikin hal nyata?  
+🌌 Atau sekadar mencari tim kreatif yang solid?
+
+Bergabunglah di server komunitas kami dan mari membangun semesta baru bersama:
+
+[![Discord](https://img.shields.io/discord/1245680140578041876?label=Join%20our%20Discord&logo=discord&color=7289DA)](https://discord.gg/sPTmFZnJcz)
+
+> 🔗 https://discord.gg/sPTmFZnJcz
+
+---
+
+## 🛸 Hubungi Kami
 
 - 🌐 Website: [nextterra.dev](https://nextterra.dev) _(Coming Soon)_
-- 💬 Discord: `NextTerra#2025`
 - 📧 Email: [nextterra@email.com](mailto:nextterra@email.com)
+- 💬 Discord: `NextTerra#2025`
 - 📸 Instagram: [@nextterra.studio](https://instagram.com/nextterra.studio)
 
 ---
 
 <p align="center">
-  🚀 Let's build the next world, together.  
-  <br/>
-  <strong>#NextTerraStudio</strong>
+  <img src="https://i.gifer.com/3ORI.gif" alt="Stars" width="150" /><br/>
+  <strong>Next Terra Studio</strong> — Your Universe of Ideas 🚀
 </p>
