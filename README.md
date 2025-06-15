@@ -1,46 +1,66 @@
-<h1 align="center">🎧 Next Terra Music Bot 🎶</h1>
-<p align="center">
-  <b>Bot Musik All-in-One</b> dengan fitur <code>Play</code>, <code>Queue</code>, <code>Buttons</code> interaktif, dan UI keren!
-</p>
+<h1 align="center">🌌 Next Terra Studio</h1>
+<p align="center"><em>“Expanding Worlds Through Code, Design, and Imagination.”</em></p>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif" width="200" />
+  <img src="https://media.giphy.com/media/xTiTnz9Xttb5TuRQ1W/giphy.gif" width="300" alt="Next Terra Studio Banner" />
 </p>
 
 ---
 
-## 🚀 Fitur Unggulan
+## 🌟 Tentang Kami
 
-✅ Pemutaran musik dari YouTube  
-✅ Kontrol tombol interaktif (⏯ Pause, ⏭ Skip, ⏹ Stop)  
-✅ Queue lagu dengan tampilan embed yang kece  
-✅ Pencarian otomatis dari keyword (tanpa link!)  
-✅ UI Web (💻 Coming Soon)  
-✅ Support 24/7 + Auto reconnect  
+**Next Terra Studio** adalah ruang eksplorasi kreatif dan teknologi. Kami adalah komunitas independen yang bergerak di bidang:
 
----
+- 🎮 Pengembangan Game & Discord Bot
+- 🧠 Edukasi Digital & Tools Interaktif
+- 🌐 Web Development & UI/UX Modern
+- 🎨 Pixel Art, Texture Pack & Desain Visual
 
-## 📸 Screenshot
-| Dashboard (Coming Soon) | Bot in Action |
-|--------------------------|----------------|
-| ![Dashboard](https://via.placeholder.com/300x180.png?text=Coming+Soon) | ![Bot](https://via.placeholder.com/300x180.png?text=Bot+Screenshot) |
+Dengan semangat *"Build what matters, create what inspires"* — kami membuat proyek-proyek yang seru, mendidik, dan menyenangkan.
 
 ---
 
-## 🛠️ Instalasi Lokal
+## 🚧 Proyek-Proyek Unggulan
 
-```bash
-# 1. Clone repositori ini
-git clone https://github.com/namakamu/nama-proyek.git
+| Nama Proyek | Deskripsi | Status |
+|-------------|-----------|--------|
+| 🎧 **Next Terra Music Bot** | Bot Discord musik dengan UI interaktif, tombol play/pause, dan antrian lagu | ✅ Live |
+| 📊 **Konverter Sistem Bilangan** | Web edukasi untuk konversi Biner, Desimal, Oktal, dan Heksadesimal lengkap dengan penjelasan | 🔧 Beta |
+| 🧱 **Fantasy 32x32 Minecraft Pack** | Texture pack bertema PvP Fantasy untuk Minecraft versi terbaru | 🎨 On Progress 
+| 🕹️ **Pokémon All-in-One Server** | Server Discord Pokémon lengkap dengan RP, TCG, Anime, Game, dan Pokédex custom | ✅ Live |
 
-# 2. Masuk ke folder
-cd nama-proyek
+---
 
-# 3. Install dependencies
-pip install -r requirements.txt
+## 🚀 Visi Kami
 
-# 4. Buat file .env dan tambahkan TOKEN
-echo "TOKEN=your_token_disini" > .env
+> "Menjadi wadah anak-anak kreatif yang ingin menjelajah dunia digital melalui karya yang berdampak, menyenangkan, dan memajukan."
 
-# 5. Jalankan bot
-python bot.py
+Kami percaya bahwa teknologi bukan hanya alat, tapi media untuk menyampaikan cerita, menyatukan komunitas, dan membangun masa depan.
+
+---
+
+## 👥 Bergabung & Kolaborasi
+
+Kami terbuka untuk kolaborasi, ide, dan partner project!  
+Silakan hubungi kami jika kamu:
+
+- Punya ide project dan butuh tim dev
+- Ingin belajar ngoding sambil bikin project real
+- Mau bikin produk digital seperti bot, game, atau website
+
+---
+
+## 📬 Kontak Kami
+
+- 🌐 Website: [nextterra.dev](https://nextterra.dev) _(Coming Soon)_
+- 💬 Discord: `NextTerra#2025`
+- 📧 Email: [nextterra@email.com](mailto:nextterra@email.com)
+- 📸 Instagram: [@nextterra.studio](https://instagram.com/nextterra.studio)
+
+---
+
+<p align="center">
+  🚀 Let's build the next world, together.  
+  <br/>
+  <strong>#NextTerraStudio</strong>
+</p>
