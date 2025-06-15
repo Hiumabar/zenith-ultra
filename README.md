@@ -4,69 +4,69 @@
 <p align="center"><em>“Expanding Worlds Through Code, Design, and Imagination.”</em></p>
 
 <p align="center">
-  <img src="https://i.gifer.com/7VE.gif" alt="Space Animation" width="300"/>
+  <img src="https://i.gifer.com/7VE.gif" alt="Galaxy Animation" width="300"/>
 </p>
 
 ---
 
-## 🪐 Tentang Kami
+## 🪐 Tentang Kami | About Us
 
-**Next Terra Studio** adalah laboratorium kreatif digital yang berbasis komunitas, berfokus pada pengembangan karya yang menyatukan teknologi dan imajinasi.
+**Next Terra Studio** adalah studio kreatif digital yang menjelajahi berbagai dunia melalui teknologi dan seni.  
+We are a creative studio crafting digital universes through code, visuals, and imagination.
 
-Kami menjelajah berbagai dimensi kreatif:
+Kami fokus di bidang:
 
-- 🚀 Pengembangan Game & Bot AI
-- 🌠 Edukasi Teknologi & Tools Interaktif
-- 🪄 Desain Pixel Art & Texture Pack Minecraft
-- 🧠 Proyek Eksperimental Web & UI/UX futuristik
-
-Dengan tema galaksi dan eksplorasi tanpa batas, kami percaya setiap ide bisa menjadi semesta baru.
+- 🚀 Bot & Game Development
+- 🌠 Digital Tools & Educational Web
+- 🧱 Minecraft Art & Pixel Projects
+- 🎨 UI/UX Design with futuristic vibes
 
 ---
 
-## 🌌 Proyek-proyek Galaksi Kami
+## 🌌 Proyek Unggulan | Featured Projects
 
 | 🚧 Proyek | ✨ Deskripsi | 🚀 Status |
 |----------|-------------|-----------|
-| 🎧 **Next Terra Music Bot** | Bot musik Discord dengan tombol interaktif, antrian lagu, dan pencarian otomatis. | ✅ Aktif |
-| 🌐 **Konverter Sistem Bilangan** | Web edukatif untuk konversi biner, oktal, heksadesimal, dan desimal dengan penjelasan langkah. | 🔧 Beta |
-| 🧱 **Fantasy Minecraft Pack 32x32** | Texture pack bertema PvP fantasi untuk Minecraft. | 🎨 Dalam Proses |
-| ⚡ **Pokémon All-in-One Server** | Server Discord Pokémon dengan fitur lengkap: RP, Pokédex, TCG, Game. | ✅ Online |
+| 🎧 **Next Terra Music Bot** | Bot musik Discord dengan kontrol interaktif dan pencarian otomatis. <br/>Discord music bot with full interactivity. | ✅ Aktif |
+| 📊 **Konverter Sistem Bilangan** | Web konversi biner, oktal, heksa, dan desimal + penjelasan. <br/>Number system converter with step-by-step logic. | 🔧 Beta |
+| 🧱 **Fantasy Minecraft 32x32 Pack** | Texture pack PvP fantasy untuk Minecraft resolusi tinggi. <br/>32x32 fantasy-themed PvP texture pack. | 🎨 On Progress |
+| 🧟 **WA Creeper Horror Sticker** | Stiker WhatsApp pixel-art bertema Creeper horor. <br/>Creeper horror WA sticker pack (pixel art). | ✅ Rilis |
+| 🎮 **Survival Death Game** | Cerita permainan sadis ala Alice in Borderland x Squid Game. <br/>Deadly survival game narrative & concept. | ✍️ Development |
+| ⚡ **Pokémon All-in-One Server** | Server Discord lengkap: RP, Pokédex, TCG, Anime. <br/>Complete Pokémon Discord hub. | ✅ Online |
 
 ---
 
-## 🌠 Visi Kosmik Kami
+## 🌠 Visi Kami | Our Vision
 
-> "Menjadi galaksi digital bagi para penjelajah kreatif yang ingin membangun dunia baru melalui teknologi, seni, dan kolaborasi."
-
-Kami menciptakan bukan hanya untuk hari ini, tapi untuk masa depan dunia digital yang luas dan penuh kemungkinan.
+> "Menjadi galaksi digital bagi para penjelajah kreatif yang ingin membangun dunia baru melalui teknologi, seni, dan kolaborasi."  
+> "To be a digital galaxy where creators explore, build, and connect through innovation."
 
 ---
 
-## 👾 Bergabunglah di Komunitas Kami!
+## 👾 Gabung Komunitas | Join the Community
 
-✨ Punya ide project seru?  
-🚀 Ingin belajar coding sambil bikin hal nyata?  
-🌌 Atau sekadar mencari tim kreatif yang solid?
+Bergabunglah dan terbang bersama kami 🚀  
+Join our community to build & explore together:
 
-Bergabunglah di server komunitas kami dan mari membangun semesta baru bersama:
-
-[![Discord](https://img.shields.io/discord/1245680140578041876?label=Join%20our%20Discord&logo=discord&color=7289DA)](https://discord.gg/sPTmFZnJcz)
+[![Discord](https://img.shields.io/discord/1245680140578041876?label=Join%20Discord&logo=discord&color=7289DA)](https://discord.gg/sPTmFZnJcz)
 
 > 🔗 https://discord.gg/sPTmFZnJcz
 
 ---
 
-## 🛸 Hubungi Kami
+## 📬 Kontak Kami | Contact Us
 
 - 🌐 Website: [nextterra.dev](https://nextterra.dev) _(Coming Soon)_
 - 📧 Email: [nextterra@email.com](mailto:nextterra@email.com)
 - 💬 Discord: `NextTerra#2025`
+- 📱 WhatsApp: [Chat via WhatsApp](https://wa.me/6281234567890)
 - 📸 Instagram: [@nextterra.studio](https://instagram.com/nextterra.studio)
+- 🎵 TikTok: [@nextterra.studio](https://tiktok.com/@nextterra.studio)
+- 🐦 X (Twitter): [@NextTerraX](https://x.com/NextTerraX)
 
 ---
 
 <p align="center">
-  <img src="https://i.gifer.com/3ORI.gif" alt="Stars" width="150" /><br/>
-  <strong>Next Terra Studio</strong> — Your Universe of Ideas 🚀
+  <img src="https://i.gifer.com/3ORI.gif" alt="Stars" width="160" /><br/>
+  <strong>Next Terra Studio</strong> — <em>Your Universe of Ideas</em> 🌌
 </p>
