@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlNhdmVTbWFydCBaZW5pdGggVXVsdHJhIiwKICAic2hvcnRfbmFtZSI6ICJaaGVuaXRoIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDMwNzEyIiwKICAidGhlbWVfY29sb3IiIjogIiMxMGI5ODEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yNDg5LzI0ODk3NTYucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9">
+    <link rel="manifest" href="manifest.json">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -45,6 +45,9 @@
 
         input, select { width: 100%; padding: 14px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); margin-bottom: 12px; outline: none; }
         #wizard { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+        
+        #btnInstallManual { display: none; background: var(--accent); color: #000; margin-bottom: 15px; width: 100%; border: none; padding: 10px; border-radius: 10px; font-weight: 800; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -56,6 +59,8 @@
         <input type="number" id="oGoal" placeholder="Harga Target (Rp)">
         <button class="btn btn-prim" onclick="initApp()">Mulai Menabung</button>
     </div>
+
+    <button id="btnInstallManual" onclick="triggerInstall()">📲 PASANG APLIKASI</button>
 
     <div class="flex" style="margin-bottom:20px;">
         <h2 style="margin:0; letter-spacing:-1px;">ZENITH ULTRA<span style="color:var(--prim)">.</span></h2>
@@ -118,6 +123,25 @@
             targets: [], logs: [], streak: 0, lastDate: null, theme: 'dark'
         };
         let lineChart, barChart;
+        let deferredPrompt;
+
+        // PWA Install Logic
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('btnInstallManual').style.display = 'block';
+        });
+
+        async function triggerInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('btnInstallManual').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        }
 
         function initApp() {
             const n = document.getElementById('oName').value, g = document.getElementById('oGoal').value;
@@ -252,7 +276,6 @@
             doc.save(`Laporan_Zenith_${Date.now()}.pdf`);
         }
 
-        // PERBAIKAN REGISTRASI PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -264,5 +287,4 @@
         render();
     </script>
 </body>
-  </html>
-  
+</html>
