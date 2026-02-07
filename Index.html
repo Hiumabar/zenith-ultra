@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SaveSmart Zenith Ultra</title>
+
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlNhdmVTbWFydCBaZW5pdGggVXVsdHJhIiwKICAic2hvcnRfbmFtZSI6ICJaaGVuaXRoIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDMwNzEyIiwKICAidGhlbWVfY29sb3IiIjogIiMxMGI5ODEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yNDg5LzI0ODk3NTYucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        :root { --bg: #030712; --card: #111827; --text: #f9fafb; --prim: #10b981; --border: #1f2937; --sec: #374151; --accent: #f59e0b; }
+        .light-mode { --bg: #f3f4f6; --card: #ffffff; --text: #111827; --border: #e5e7eb; --prim: #059669; --sec: #d1d5db; --accent: #d97706; }
+        
+        * { box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; transition: 0.3s; }
+        body { background: var(--bg); color: var(--text); margin: 0; padding: 16px; padding-bottom: 120px; overflow-x: hidden; }
+        
+        .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .flex { display: flex; justify-content: space-between; align-items: center; }
+        
+        .badge { font-size: 10px; padding: 4px 10px; border-radius: 50px; font-weight: bold; background: var(--prim); color: #000; }
+        .streak-badge { background: rgba(245, 158, 11, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+
+        .heat-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 10px; }
+        .cell { aspect-ratio: 1; background: var(--sec); border-radius: 3px; }
+        .cell.active { background: var(--prim); box-shadow: 0 0 5px var(--prim); }
+
+        .p-bg { background: var(--sec); height: 10px; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .p-fill { background: linear-gradient(90deg, var(--prim), #34d399); height: 100%; transition: 1s ease; }
+
+        .btn { border: none; padding: 14px; border-radius: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-prim { background: var(--prim); color: #000; width: 100%; }
+        .btn-sec { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+        .fab { position: fixed; bottom: 20px; left: 16px; right: 16px; display: flex; gap: 10px; z-index: 100; }
+
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .modal.active { display: flex; }
+
+        input, select { width: 100%; padding: 14px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); margin-bottom: 12px; outline: none; }
+        #wizard { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div id="wizard">
+        <h1 style="color:var(--prim); font-size: 32px; margin:0;">SaveSmart.</h1>
+        <p style="opacity:0.7">Mari buat target tabungan pertamamu</p>
+        <input type="text" id="oName" placeholder="Contoh: Laptop Gaming">
+        <input type="number" id="oGoal" placeholder="Harga Target (Rp)">
+        <button class="btn btn-prim" onclick="initApp()">Mulai Menabung</button>
+    </div>
+
+    <div class="flex" style="margin-bottom:20px;">
+        <h2 style="margin:0; letter-spacing:-1px;">ZENITH ULTRA<span style="color:var(--prim)">.</span></h2>
+        <div class="flex" style="gap:10px;">
+            <div class="badge streak-badge">🔥 <span id="stkVal">0</span> HARI</div>
+            <button onclick="toggleTheme()" class="btn" style="padding:8px; border-radius:50%; width:40px; height:40px;">🌓</button>
+        </div>
+    </div>
+
+    <div class="card" onclick="openStats()">
+        <div class="flex">
+            <span style="font-size:10px; font-weight:800; opacity:0.6">AKTIVITAS & ANALITIK (TAP)</span>
+            <span id="levelBadge" class="badge">Bronze</span>
+        </div>
+        <div class="heat-grid" id="heatGrid"></div>
+        <canvas id="mainChart" height="130" style="margin-top:15px;"></canvas>
+    </div>
+
+    <div id="targetList"></div>
+
+    <div class="fab">
+        <button class="btn btn-sec" onclick="exportAdvancedPDF()" style="flex:1">📄 PDF</button>
+        <button class="btn btn-prim" onclick="openModal('saveModal')" style="flex:2">💰 NABUNG</button>
+        <button class="btn btn-sec" onclick="openModal('targetModal')" style="flex:1">🎯 +</button>
+    </div>
+
+    <div id="saveModal" class="modal">
+        <div class="card" style="width:100%">
+            <h3>Tambah Tabungan</h3>
+            <select id="saveTo"></select>
+            <input type="number" id="saveAmt" placeholder="Nominal Rp">
+            <button class="btn btn-prim" onclick="doSave()">Simpan Saldo</button>
+            <button class="btn btn-sec" onclick="closeModal('saveModal')" style="width:100%; margin-top:8px;">Batal</button>
+        </div>
+    </div>
+
+    <div id="targetModal" class="modal">
+        <div class="card" style="width:100%">
+            <h3>🎯 Tambah Impian</h3>
+            <input type="text" id="ntName" placeholder="Nama Barang">
+            <input type="number" id="ntGoal" placeholder="Harga Target">
+            <button class="btn btn-prim" onclick="doAddTarget()">Tambah Target</button>
+            <button class="btn btn-sec" onclick="closeModal('targetModal')" style="width:100%; margin-top:8px;">Batal</button>
+        </div>
+    </div>
+
+    <div id="statsModal" class="modal">
+        <div class="card" style="width:100%; max-height:85vh; overflow-y:auto;">
+            <h3 style="color:var(--prim); margin-top:0">Super Analytics</h3>
+            <div id="anaContent" style="font-size:13px; line-height:1.8"></div>
+            <hr style="border:0; border-top:1px solid var(--border); margin:15px 0;">
+            <b>Statistik Bulanan:</b>
+            <canvas id="barChart" height="200" style="margin-top:10px;"></canvas>
+            <button class="btn btn-prim" onclick="closeModal('statsModal')" style="margin-top:20px;">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || {
+            targets: [], logs: [], streak: 0, lastDate: null, theme: 'dark'
+        };
+        let lineChart, barChart;
+
+        function initApp() {
+            const n = document.getElementById('oName').value, g = document.getElementById('oGoal').value;
+            if(n && g) { db.targets.push({name:n, goal:parseInt(g), saved:0}); document.getElementById('wizard').style.display='none'; save(); }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            db.theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            save();
+        }
+
+        function openModal(id) {
+            if(id === 'saveModal') {
+                const sel = document.getElementById('saveTo');
+                sel.innerHTML = db.targets.map((t,i) => `<option value="${i}">${t.name}</option>`).join('');
+            }
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function doSave() {
+            const idx = document.getElementById('saveTo').value, amt = parseInt(document.getElementById('saveAmt').value);
+            if(amt) {
+                db.targets[idx].saved += amt;
+                const today = new Date().toDateString();
+                if(db.lastDate !== today) { db.streak++; db.lastDate = today; }
+                db.logs.push({ d: new Date().toISOString(), v: amt, t: db.targets[idx].name });
+                closeModal('saveModal');
+                save();
+            }
+        }
+
+        function doAddTarget() {
+            const n = document.getElementById('ntName').value, g = document.getElementById('ntGoal').value;
+            if(n && g) { db.targets.push({name:n, goal:parseInt(g), saved:0}); closeModal('targetModal'); save(); }
+        }
+
+        function openStats() {
+            const total = db.targets.reduce((a,b)=>a+b.saved, 0);
+            document.getElementById('anaContent').innerHTML = `
+                📌 <b>Total Saldo:</b> Rp ${total.toLocaleString()}<br>
+                🔥 <b>Streak:</b> ${db.streak} Hari<br>
+                📊 <b>Total Transaksi:</b> ${db.logs.length}<br>
+                🏆 <b>Level:</b> ${getLevel(total)}
+            `;
+            openModal('statsModal');
+            setTimeout(renderBarChart, 200);
+        }
+
+        function getLevel(total) {
+            if(total >= 10000000) return "Diamond";
+            if(total >= 1000000) return "Gold";
+            return "Bronze";
+        }
+
+        function save() { localStorage.setItem('ss_ultra_db', JSON.stringify(db)); render(); }
+
+        function render() {
+            if(db.targets.length === 0) document.getElementById('wizard').style.display='flex';
+            if(db.theme === 'light') document.body.classList.add('light-mode');
+            document.getElementById('stkVal').innerText = db.streak;
+            
+            const list = document.getElementById('targetList');
+            list.innerHTML = db.targets.map(t => {
+                const p = Math.min((t.saved/t.goal)*100, 100).toFixed(1);
+                return `
+                <div class="card">
+                    <div class="flex"><b>${t.name}</b> <span class="badge">${p}%</span></div>
+                    <div class="p-bg"><div class="p-fill" style="width:${p}%"></div></div>
+                    <small>Rp ${t.saved.toLocaleString()} / Rp ${t.goal.toLocaleString()}</small>
+                </div>`;
+            }).join('');
+
+            renderHeatmap();
+            renderLineChart();
+        }
+
+        function renderHeatmap() {
+            const h = document.getElementById('heatGrid'); h.innerHTML = '';
+            const dates = db.logs.map(l => new Date(l.d).toDateString());
+            for(let i=0; i<21; i++) {
+                const d = new Date(); d.setDate(d.getDate() - (20-i));
+                const c = document.createElement('div');
+                c.className = 'cell' + (dates.includes(d.toDateString()) ? ' active' : '');
+                h.appendChild(c);
+            }
+        }
+
+        function renderLineChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const last7 = db.logs.slice(-7);
+            if(lineChart) lineChart.destroy();
+            lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: last7.map(l => new Date(l.d).getDate()),
+                    datasets: [{ data: last7.map(l => l.v), borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)', pointRadius: 2 }]
+                },
+                options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } }
+            });
+        }
+
+        function renderBarChart() {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            const months = {};
+            db.logs.forEach(l => {
+                const k = new Date(l.d).toLocaleDateString('id-ID', {month:'short'});
+                months[k] = (months[k] || 0) + l.v;
+            });
+            if(barChart) barChart.destroy();
+            barChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(months),
+                    datasets: [{ data: Object.values(months), backgroundColor: '#10b981', borderRadius: 5 }]
+                }
+            });
+        }
+
+        async function exportAdvancedPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFillColor(16, 185, 129); doc.rect(0, 0, 210, 40, 'F');
+            doc.setFontSize(22); doc.setTextColor(255); doc.text("SAVESMART ZENITH REPORT", 14, 25);
+            doc.autoTable({
+                startY: 50,
+                head: [['Target', 'Terkumpul', 'Target Harga', 'Status']],
+                body: db.targets.map(t => [t.name, `Rp ${t.saved.toLocaleString()}`, `Rp ${t.goal.toLocaleString()}`, `${((t.saved/t.goal)*100).toFixed(1)}%`])
+            });
+            doc.save(`Laporan_Zenith_${Date.now()}.pdf`);
+        }
+
+        // PERBAIKAN REGISTRASI PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('PWA: Service Worker Registered'))
+                .catch(err => console.error('PWA: Registration Failed', err));
+            });
+        }
+
+        render();
+    </script>
+</body>
+  </html>
+  
