@@ -1,15 +1,14 @@
 {
   "name": "SaveSmart Zenith Ultra",
-  "short_name": "Zenith",
-  "description": "Aplikasi tabungan pintar dengan analitik canggih.",
-  "start_url": "./index.html",
+  "short_name": "Zenith Ultra",
+  "start_url": "index.html",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#030712",
   "theme_color": "#10b981",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2489/2489756.png",
+      "src": "https://i.ibb.co.com/PLCqHHz/app-icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
