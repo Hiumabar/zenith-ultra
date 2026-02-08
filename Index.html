@@ -16,13 +16,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
     <style>
-        :root { --bg: #030712; --card: #111827; --text: #f9fafb; --prim: #10b981; --border: #1f2937; --sec: #374151; --accent: #f59e0b; }
+        :root { --bg: #030712; --card: #111827; --text: #f9fafb; --prim: #10b981; --border: #1f2937; --sec: #374151; --accent: #f59e0b; --danger: #ef4444; }
         .light-mode { --bg: #f3f4f6; --card: #ffffff; --text: #111827; --border: #e5e7eb; --prim: #059669; --sec: #d1d5db; --accent: #d97706; }
         
-        * { box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; transition: 0.3s; }
+        /* Proteksi Teks: Anti Salin */
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            transition: 0.3s;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 dan 11 */
+            user-select: none; /* Standard syntax */
+            -webkit-touch-callout: none; /* Matikan menu konteks di iOS */
+        }
+
         body { background: var(--bg); color: var(--text); margin: 0; padding: 16px; padding-bottom: 120px; overflow-x: hidden; }
         
-        .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: relative; }
         .flex { display: flex; justify-content: space-between; align-items: center; }
         
         .badge { font-size: 10px; padding: 4px 10px; border-radius: 50px; font-weight: bold; background: var(--prim); color: #000; }
@@ -38,19 +48,21 @@
         .btn { border: none; padding: 14px; border-radius: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-prim { background: var(--prim); color: #000; width: 100%; }
         .btn-sec { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+        .btn-del { background: transparent; color: var(--danger); border: none; padding: 5px; cursor: pointer; font-size: 18px; }
+        
         .fab { position: fixed; bottom: 20px; left: 16px; right: 16px; display: flex; gap: 10px; z-index: 100; }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
         .modal.active { display: flex; }
 
-        input, select { width: 100%; padding: 14px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); margin-bottom: 12px; outline: none; }
+        input, select { width: 100%; padding: 14px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); margin-bottom: 12px; outline: none; -webkit-user-select: text; user-select: text; }
         #wizard { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
         
         #btnInstallManual { display: none; background: var(--accent); color: #000; margin-bottom: 15px; width: 100%; border: none; padding: 10px; border-radius: 10px; font-weight: 800; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onkeydown="return disableShortcuts(event)">
 
     <div id="wizard">
         <h1 style="color:var(--prim); font-size: 32px; margin:0;">SaveSmart.</h1>
@@ -119,13 +131,20 @@
     </div>
 
     <script>
+        // 1. Proteksi JS: Matikan shortcut keyboard (Ctrl+C, Ctrl+U, dll)
+        function disableShortcuts(e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73)) {
+                return false;
+            }
+        }
+
         let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || {
             targets: [], logs: [], streak: 0, lastDate: null, theme: 'dark'
         };
         let lineChart, barChart;
         let deferredPrompt;
 
-        // PWA Install Logic
+        // PWA logic tetap sama
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -157,6 +176,7 @@
         function openModal(id) {
             if(id === 'saveModal') {
                 const sel = document.getElementById('saveTo');
+                if(db.targets.length === 0) { alert("Belum ada target!"); return; }
                 sel.innerHTML = db.targets.map((t,i) => `<option value="${i}">${t.name}</option>`).join('');
             }
             document.getElementById(id).classList.add('active');
@@ -172,13 +192,28 @@
                 if(db.lastDate !== today) { db.streak++; db.lastDate = today; }
                 db.logs.push({ d: new Date().toISOString(), v: amt, t: db.targets[idx].name });
                 closeModal('saveModal');
+                document.getElementById('saveAmt').value = '';
                 save();
             }
         }
 
         function doAddTarget() {
             const n = document.getElementById('ntName').value, g = document.getElementById('ntGoal').value;
-            if(n && g) { db.targets.push({name:n, goal:parseInt(g), saved:0}); closeModal('targetModal'); save(); }
+            if(n && g) { 
+                db.targets.push({name:n, goal:parseInt(g), saved:0}); 
+                closeModal('targetModal'); 
+                document.getElementById('ntName').value = '';
+                document.getElementById('ntGoal').value = '';
+                save(); 
+            }
+        }
+
+        // FITUR BARU: Hapus Target
+        function deleteTarget(index) {
+            if(confirm(`Hapus target "${db.targets[index].name}"? Data saldo ini akan hilang.`)) {
+                db.targets.splice(index, 1);
+                save();
+            }
         }
 
         function openStats() {
@@ -202,16 +237,27 @@
         function save() { localStorage.setItem('ss_ultra_db', JSON.stringify(db)); render(); }
 
         function render() {
-            if(db.targets.length === 0) document.getElementById('wizard').style.display='flex';
+            if(db.targets.length === 0 && !localStorage.getItem('ss_ultra_db')) {
+                document.getElementById('wizard').style.display='flex';
+            } else {
+                document.getElementById('wizard').style.display='none';
+            }
+            
             if(db.theme === 'light') document.body.classList.add('light-mode');
             document.getElementById('stkVal').innerText = db.streak;
             
             const list = document.getElementById('targetList');
-            list.innerHTML = db.targets.map(t => {
+            list.innerHTML = db.targets.map((t, i) => {
                 const p = Math.min((t.saved/t.goal)*100, 100).toFixed(1);
                 return `
                 <div class="card">
-                    <div class="flex"><b>${t.name}</b> <span class="badge">${p}%</span></div>
+                    <div class="flex">
+                        <b>${t.name}</b> 
+                        <div class="flex" style="gap:10px;">
+                            <span class="badge">${p}%</span>
+                            <button class="btn-del" onclick="deleteTarget(${i})">🗑️</button>
+                        </div>
+                    </div>
                     <div class="p-bg"><div class="p-fill" style="width:${p}%"></div></div>
                     <small>Rp ${t.saved.toLocaleString()} / Rp ${t.goal.toLocaleString()}</small>
                 </div>`;
@@ -271,7 +317,8 @@
             doc.autoTable({
                 startY: 50,
                 head: [['Target', 'Terkumpul', 'Target Harga', 'Status']],
-                body: db.targets.map(t => [t.name, `Rp ${t.saved.toLocaleString()}`, `Rp ${t.goal.toLocaleString()}`, `${((t.saved/t.goal)*100).toFixed(1)}%`])
+                body: db.targets.map(t => [t.name, `Rp ${t.saved.toLocaleString()}`, `Rp ${t.goal.toLocaleString()}`, `${((t.saved/t.goal)*100).toFixed(1)}%`]),
+                theme: 'striped'
             });
             doc.save(`Laporan_Zenith_${Date.now()}.pdf`);
         }
@@ -279,8 +326,8 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('PWA: Service Worker Registered'))
-                .catch(err => console.error('PWA: Registration Failed', err));
+                .then(reg => console.log('PWA Registered'))
+                .catch(err => console.error('PWA Failed', err));
             });
         }
 
