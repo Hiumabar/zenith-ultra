@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zenith Ultra</title>
+    <title>Zenith Ultra - Arsitektur Finansial Masa Depan</title>
+    <meta name="description" content="Zenith Ultra: Aplikasi manajemen keuangan cerdas dengan sistem tracking streak, heatmap aktivitas, dan analisis portofolio premium.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zenith-ultra.example.com/"> 
+    <meta property="og:title" content="Zenith Ultra - Arsitektur Finansial Masa Depan">
+    <meta property="og:description" content="Pantau progres menabung, streak harian, dan analisis portofolio premium dalam satu aplikasi cerdas.">
+    <meta property="og:image" content="https://i.ibb.co.com/PLCqHHz/app-icon.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Zenith Ultra - Arsitektur Finansial Masa Depan">
+    <meta property="twitter:description" content="Kelola keuanganmu dengan arsitektur masa depan di Zenith Ultra!">
+    <meta property="twitter:image" content="https://i.ibb.co.com/PLCqHHz/app-icon.png">
+
     <meta name="google-site-verification" content="HuH731if_mx1v-_UBpD2SQ61c2JBhEEctxXELLG40sc" />
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#10b981">
@@ -16,6 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root { --bg: #030712; --card: #111827; --text: #f9fafb; --prim: #10b981; --border: #1f2937; --sec: #374151; --accent: #f59e0b; --danger: #ef4444; --shadow: rgba(0,0,0,0.4); }
@@ -55,26 +69,58 @@
         .history-table td { padding: 12px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .history-table td:first-child { border-left: 1px solid var(--border); border-radius: 12px 0 0 12px; }
         .history-table td:last-child { border-right: 1px solid var(--border); border-radius: 0 12px 12px 0; }
-        #wizard { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; }
+        
+        /* Share Styles */
+        .share-card { background: linear-gradient(135deg, #064e3b 0%, #030712 100%); padding: 30px; border-radius: 30px; border: 2px solid var(--prim); color: white; text-align: left; position: relative; overflow: hidden; }
+        .share-card::after { content: 'ZENITH'; position: absolute; right: -20px; bottom: -10px; font-size: 80px; font-weight: 900; opacity: 0.05; font-style: italic; }
+        .share-preview-container { margin: 20px 0; perspective: 1000px; }
+        .preview-box { transform: rotateX(5deg); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        
+        #wizard { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
+        .wiz-step { width: 100%; max-width: 400px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .day-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0; }
+        .day-opt { padding: 10px 5px; border-radius: 12px; background: var(--sec); font-size: 11px; font-weight: bold; cursor: pointer; border: 2px solid transparent; }
+        .day-opt.active { background: rgba(16, 185, 129, 0.2); border-color: var(--prim); color: var(--prim); }
     </style>
 </head>
 <body oncontextmenu="return false">
 
     <div id="wizard">
-        <div class="wiz-step active" id="step1">
+        <div class="wiz-step" id="step1">
             <h1 style="color:var(--prim); font-size: 48px; margin-bottom:10px; letter-spacing: -2px;">Zenith.</h1>
             <p style="opacity:0.7; font-size: 18px;">Arsitektur finansial masa depan Anda.</p>
             <button class="btn btn-prim" onclick="nextStep(2)" style="margin: 30px auto; width: 220px; border-radius: 100px;">Mulai Eksplorasi</button>
         </div>
         <div class="wiz-step" id="step2" style="display:none">
-            <h2>🎯 Target Utama?</h2>
-            <input type="text" id="oName" placeholder="Nama Impian">
-            <input type="number" id="oGoal" placeholder="Target Nominal (Rp)">
-            <button class="btn btn-prim" onclick="nextStep(3)" style="margin: 0 auto; width: 220px; border-radius: 100px;">Lanjut</button>
+            <span style="font-size: 40px;">🎯</span>
+            <h2>Target Utama</h2>
+            <p style="font-size:14px; opacity:0.6;">Apa impian besar pertama yang ingin dicapai?</p>
+            <input type="text" id="oName" placeholder="Contoh: Dana Darurat">
+            <input type="number" id="input_oGoal" placeholder="Target Nominal (Rp)">
+            <button class="btn btn-prim" onclick="nextStep(3)" style="margin: 10px auto; width: 100%; border-radius: 100px;">Lanjut</button>
         </div>
         <div class="wiz-step" id="step3" style="display:none">
-            <h2>✨ Sistem Siap</h2>
-            <button class="btn btn-prim" onclick="initApp()" style="margin: 0 auto; width: 220px; border-radius: 100px;">Aktifkan Zenith</button>
+            <span style="font-size: 40px;">📅</span>
+            <h2>Jadwal Menabung</h2>
+            <p style="font-size: 14px; opacity: 0.6;">Pilih hari spesifik untuk target ini.</p>
+            <div class="day-selector" id="wizDayPicker">
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="1">Senin</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="2">Selasa</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="3">Rabu</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="4">Kamis</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="5">Jumat</div>
+                <div class="day-opt" onclick="this.classList.toggle('active')" data-day="6">Sabtu</div>
+                <div class="day-opt" onclick="this.classList.toggle('active')" data-day="0">Minggu</div>
+            </div>
+            <button class="btn btn-prim" onclick="nextStep(4)" style="margin: 10px auto; width: 100%; border-radius: 100px;">Tinjau Sistem</button>
+        </div>
+        <div class="wiz-step" id="step4" style="display:none">
+            <div style="font-size: 60px; margin-bottom: 10px;">✨</div>
+            <h2>Sistem Siap</h2>
+            <p style="font-size: 14px; opacity: 0.6; margin-bottom: 30px;">Zenith telah dikonfigurasi. Streak akan dihitung berdasarkan hari yang Anda pilih.</p>
+            <button class="btn btn-prim" onclick="initApp()" style="margin: 0 auto; width: 100%; border-radius: 100px;">Aktifkan Zenith</button>
         </div>
     </div>
 
@@ -108,9 +154,46 @@
     <div id="exportModal" class="modal">
         <div class="modal-content">
             <h3 style="margin-top:0">Data Portofolio</h3>
+            <button class="btn btn-prim" onclick="openShare()" style="margin-bottom:12px; background:linear-gradient(45deg, #10b981, #3b82f6); color:white; width: 100%;">🔗 Bagikan Pencapaian (Card)</button>
+            <button class="btn btn-sec" onclick="shareWebsite()" style="margin-bottom:12px; border: 1px solid var(--prim); width: 100%;">🌐 Bagikan Link Website</button>
             <button class="btn btn-prim" onclick="handleExport('pdf')" style="margin-bottom:12px; background:#ef4444; color:white; width: 100%;">📕 Ekspor PDF Premium</button>
-            <button class="btn btn-prim" onclick="handleExport('excel')" style="background:#10b981; color:black; width: 100%;">📗 Ekspor Excel</button>
+            <button class="btn btn-prim" onclick="handleExport('excel')" style="margin-bottom:12px; background:#10b981; color:black; width: 100%;">📗 Ekspor Excel</button>
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+            <h4 style="margin:0 0 10px 0">Cloud Backup</h4>
+            <button class="btn btn-sec" onclick="backupData()" style="width:100%; margin-bottom:10px;">📤 Salin Backup Kode</button>
+            <button class="btn btn-sec" onclick="restoreData()" style="width:100%;">📥 Pulihkan Data</button>
             <button class="btn btn-sec" onclick="closeModal('exportModal')" style="width:100%; margin-top:20px; border-radius: 100px;">Tutup</button>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <h3 style="margin-top:0">Zenith Share Card</h3>
+            <div id="shareArea" class="share-preview-container">
+                <div class="share-card preview-box" id="captureTarget">
+                    <div style="font-size: 10px; letter-spacing: 2px; opacity: 0.8; margin-bottom: 5px;">ZENITH FINANCIAL ARCHITECT</div>
+                    <h2 style="margin: 0; color: var(--prim); font-size: 28px;" id="sT_title">My Portfolio</h2>
+                    <div style="margin: 25px 0;">
+                        <div style="font-size: 12px; opacity: 0.7;">TOTAL ASSET VALUE</div>
+                        <div style="font-size: 24px; font-weight: 900;" id="sT_assets">Rp 0</div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div style="font-size: 10px; opacity: 0.7;">STREAK</div>
+                            <div style="font-size: 18px; font-weight: 700; color: #f59e0b;" id="sT_streak">0 Days</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 10px; opacity: 0.7;">STATUS</div>
+                            <div id="sT_tier" style="font-weight: 700;">PRO MEMBER</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; font-size: 10px; opacity: 0.5; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                        Dibuat di Zenith Ultra - Digital Financial Tracker
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-prim" onclick="downloadShareCard()" style="width:100%;">📸 Simpan & Bagikan Gambar</button>
+            <button class="btn btn-sec" onclick="closeModal('shareModal')" style="width:100%; margin-top:12px; border-radius: 100px;">Kembali</button>
         </div>
     </div>
 
@@ -133,6 +216,16 @@
             <h3 style="margin-top:0">🎯 Target Baru</h3>
             <input type="text" id="ntName" placeholder="Nama Barang">
             <input type="number" id="ntGoal" placeholder="Target Dana">
+            <p style="font-size: 12px; opacity: 0.6; margin-bottom: 8px;">Pilih Hari Menabung:</p>
+            <div class="day-selector" id="targetDayPicker">
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="1">Senin</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="2">Selasa</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="3">Rabu</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="4">Kamis</div>
+                <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="5">Jumat</div>
+                <div class="day-opt" onclick="this.classList.toggle('active')" data-day="6">Sabtu</div>
+                <div class="day-opt" onclick="this.classList.toggle('active')" data-day="0">Minggu</div>
+            </div>
             <button class="btn btn-prim" onclick="doAddTarget()" style="width: 100%;">Simpan Target</button>
             <button class="btn btn-sec" onclick="closeModal('targetModal')" style="width:100%; margin-top:12px; border-radius: 100px;">Batal</button>
         </div>
@@ -165,198 +258,117 @@
     </div>
 
     <script>
-        // PWA Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
-            });
+        let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || { 
+            targets: [], 
+            logs: [], 
+            streak: 0, 
+            lastDate: null, 
+            theme: 'dark'
+        };
+
+        function nextStep(s) { 
+            const n = document.getElementById('oName').value;
+            const g = document.getElementById('input_oGoal').value;
+            if(s === 3 && (!n || !g)) return alert("Isi nama target dan nominal!");
+            
+            document.querySelectorAll('.wiz-step').forEach(el => el.style.display = 'none'); 
+            document.getElementById('step'+s).style.display = 'block'; 
         }
 
-        let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || { targets: [], logs: [], streak: 0, lastDate: null, theme: 'dark' };
-        let lineChart, barChart;
-
-        function reveal() {
-            document.querySelectorAll(".reveal").forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-            });
-        }
-        window.addEventListener("scroll", reveal);
-
-        function getEstimation(target) {
-            const remaining = target.goal - target.saved;
-            if (remaining <= 0) return "Goal Achieved! 🏆";
-            const logs = db.logs.filter(l => l.t === target.name && l.v > 0);
-            if (logs.length < 2) return "Collecting more data...";
-            const start = new Date(logs[0].d);
-            const end = new Date(logs[logs.length-1].d);
-            const days = Math.max(1, Math.round((end - start) / 86400000));
-            const total = logs.reduce((s, l) => s + l.v, 0);
-            const avg = total / days;
-            if (avg <= 0) return "Waiting for activity...";
-            const daysLeft = Math.ceil(remaining / avg);
-            return daysLeft > 30 ? `${(daysLeft/30).toFixed(1)} Months left` : `${daysLeft} Days left`;
+        function initApp() { 
+            const n = document.getElementById('oName').value;
+            const g = document.getElementById('input_oGoal').value;
+            const activeDays = Array.from(document.querySelectorAll('#wizDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
+            
+            if(n && g && activeDays.length > 0) { 
+                db.targets.push({name:n, goal:parseInt(g), saved:0, schedule: activeDays}); 
+                save(); 
+                document.getElementById('wizard').style.display = 'none';
+            } else { alert("Pilih minimal 1 hari menabung!"); }
         }
 
-        function openModal(id) {
-            const m = document.getElementById(id);
-            if(id === 'saveModal' && db.targets.length === 0) { showToast("Buat target dulu!"); return; }
-            m.style.display = 'flex';
-            setTimeout(() => m.classList.add('active'), 10);
-            if(id === 'saveModal') {
-                document.getElementById('saveTo').innerHTML = db.targets.map((t,i) => `<option value="${i}">${t.name}</option>`).join('');
+        // --- NEW SHARE FUNCTIONS ---
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Zenith Ultra',
+                    text: 'Kelola keuanganmu dengan arsitektur masa depan di Zenith Ultra!',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Link disalin ke clipboard!");
             }
         }
 
-        function closeModal(id) {
-            const m = document.getElementById(id);
-            m.classList.remove('active');
-            setTimeout(() => m.style.display = 'none', 300);
+        function openShare() {
+            closeModal('exportModal');
+            const total = db.targets.reduce((a,b)=>a+b.saved, 0);
+            const primaryTarget = db.targets[0] ? db.targets[0].name : "Zenith User";
+            
+            document.getElementById('sT_assets').innerText = `Rp ${total.toLocaleString()}`;
+            document.getElementById('sT_streak').innerText = `${db.streak} DAYS`;
+            document.getElementById('sT_title').innerText = primaryTarget.toUpperCase();
+            document.getElementById('sT_tier').innerText = total > 1000000 ? "PLATINUM" : "GOLD MEMBER";
+            
+            openModal('shareModal');
+        }
+
+        async function downloadShareCard() {
+            const area = document.getElementById('captureTarget');
+            area.style.transform = "none";
+            const canvas = await html2canvas(area, { backgroundColor: '#030712', borderRadius: 30 });
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'Zenith-Portfolio.png';
+            link.href = imgData;
+            link.click();
+            area.style.transform = "rotateX(5deg)";
+        }
+        // ---------------------------
+
+        function validateStreak() {
+            if (!db.lastDate || db.streak === 0) return;
+            const last = new Date(db.lastDate);
+            const now = new Date();
+            now.setHours(0,0,0,0); last.setHours(0,0,0,0);
+            if(last.getTime() === now.getTime()) return;
+            let allScheduledDays = new Set();
+            db.targets.forEach(t => { if(t.schedule) t.schedule.forEach(d => allScheduledDays.add(d)); });
+            let checkDate = new Date(last);
+            checkDate.setDate(checkDate.getDate() + 1);
+            while(checkDate < now) {
+                if(allScheduledDays.has(checkDate.getDay())) { db.streak = 0; save(); return; }
+                checkDate.setDate(checkDate.getDate() + 1);
+            }
         }
 
         function handleSaveAction() {
             const idx = document.getElementById('saveTo').value;
             let amt = parseInt(document.getElementById('saveAmt').value);
             if(!amt || amt <= 0) return;
-            if(document.getElementById('saveType').value === 'out') {
-                if(db.targets[idx].saved < amt) { showToast("Saldo Tidak Cukup"); return; }
+            const type = document.getElementById('saveType').value;
+            if(type === 'out') {
+                if(db.targets[idx].saved < amt) { alert("Saldo Tidak Cukup"); return; }
                 amt = -amt;
             }
             db.targets[idx].saved += amt;
-            const today = new Date().toDateString();
-            if(amt > 0 && db.lastDate !== today) { db.streak++; db.lastDate = today; }
+            const now = new Date();
+            const todayStr = now.toDateString();
+            if(amt > 0) {
+                const targetSchedule = db.targets[idx].schedule || [1,2,3,4,5];
+                if (db.lastDate !== todayStr && targetSchedule.includes(now.getDay())) {
+                    db.streak++;
+                    db.lastDate = todayStr;
+                }
+            }
             db.logs.push({ d: new Date().toISOString(), v: amt, t: db.targets[idx].name });
-            showToast("Transaksi Berhasil");
             closeModal('saveModal');
             document.getElementById('saveAmt').value = '';
             save();
         }
 
-        function doAddTarget() {
-            const n = document.getElementById('ntName').value, g = document.getElementById('ntGoal').value;
-            if(n && g) {
-                db.targets.push({name:n, goal:parseInt(g), saved:0});
-                document.getElementById('ntName').value = '';
-                document.getElementById('ntGoal').value = '';
-                closeModal('targetModal');
-                save();
-                showToast("Target Disimpan");
-            }
-        }
-
-        function handleExport(type) {
-            if (db.logs.length === 0) { showToast("Belum ada data!"); return; }
-
-            if (type === 'pdf') {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                const totalAssets = db.targets.reduce((a, b) => a + b.saved, 0);
-                const pageWidth = doc.internal.pageSize.getWidth();
-                const pageHeight = doc.internal.pageSize.getHeight();
-
-                // Cover Page
-                doc.setFillColor(3, 7, 18); 
-                doc.rect(0, 0, pageWidth, pageHeight, 'F');
-                doc.setDrawColor(16, 185, 129);
-                doc.setLineWidth(2);
-                doc.line(20, 40, 60, 40);
-                doc.setTextColor(255, 255, 255);
-                doc.setFontSize(40);
-                doc.text("ZENITH", 20, 80);
-                doc.setTextColor(16, 185, 129);
-                doc.text("ULTRA.", 20, 95);
-                doc.setFontSize(14);
-                doc.setTextColor(150, 150, 150);
-                doc.text("Personal Financial Architecture Report", 20, 110);
-                doc.setFontSize(10);
-                doc.text(`Generated: ${new Date().toLocaleString()}`, 20, 260);
-
-                // Data Page
-                doc.addPage();
-                doc.setTextColor(3, 7, 18);
-                doc.setFontSize(18);
-                doc.text("DASHBOARD SUMMARY", 14, 20);
-                doc.setDrawColor(230, 230, 230);
-                doc.setFillColor(245, 250, 248);
-                doc.roundedRect(14, 30, 182, 30, 3, 3, 'FD');
-                doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text("TOTAL ASSETS", 20, 40);
-                doc.setFontSize(16);
-                doc.setTextColor(16, 185, 129);
-                doc.text(`Rp ${totalAssets.toLocaleString('id-ID')}`, 20, 52);
-                doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text("SAVING STREAK", 140, 40);
-                doc.setTextColor(245, 158, 11);
-                doc.text(`${db.streak} DAYS`, 140, 52);
-
-                const rows = db.logs.slice().reverse().map(l => [
-                    new Date(l.d).toLocaleDateString('id-ID'),
-                    l.t,
-                    l.v > 0 ? 'IN' : 'OUT',
-                    `Rp ${Math.abs(l.v).toLocaleString('id-ID')}`
-                ]);
-
-                doc.autoTable({
-                    head: [['Date', 'Target', 'Type', 'Amount']],
-                    body: rows,
-                    startY: 70,
-                    theme: 'striped',
-                    headStyles: { fillColor: [16, 185, 129] }
-                });
-
-                doc.save(`Zenith_Report_${Date.now()}.pdf`);
-            } else {
-                exportExcel();
-            }
-            closeModal('exportModal');
-        }
-
-        function exportExcel() {
-            let csv = "\uFEFFDate,Target,Type,Amount\n";
-            db.logs.slice().reverse().forEach(l => {
-                csv += `${new Date(l.d).toLocaleDateString()},${l.t},${l.v > 0 ? 'IN' : 'OUT'},${Math.abs(l.v)}\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Zenith_Data_${Date.now()}.csv`;
-            a.click();
-        }
-
-        function openStats() {
-            const total = db.targets.reduce((a,b)=>a+b.saved, 0);
-            document.getElementById('statTotal').innerText = `Rp ${total.toLocaleString()}`;
-            document.getElementById('statStreak').innerText = `${db.streak} Days`;
-            const hBody = document.getElementById('historyBody');
-            hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `
-                <tr>
-                    <td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td>
-                    <td><b>${l.t}</b></td>
-                    <td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">
-                        ${l.v > 0 ? '+' : ''}${l.v.toLocaleString()}
-                    </td>
-                </tr>
-            `).join('');
-            openModal('statsModal');
-            setTimeout(renderBarChart, 400);
-        }
-
-        function renderBarChart() {
-            const ctx = document.getElementById('barChart').getContext('2d');
-            const dataMap = {};
-            db.logs.slice(-10).forEach(l => {
-                const d = new Date(l.d).toLocaleDateString('id-ID', {day:'2-digit'});
-                dataMap[d] = (dataMap[d] || 0) + Math.abs(l.v);
-            });
-            if(barChart) barChart.destroy();
-            barChart = new Chart(ctx, {
-                type: 'bar',
-                data: { labels: Object.keys(dataMap), datasets: [{ data: Object.values(dataMap), backgroundColor: '#10b981', borderRadius: 8 }] },
-                options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } }
-            });
-        }
+        function save() { localStorage.setItem('ss_ultra_db', JSON.stringify(db)); render(); }
 
         function render() {
             document.getElementById('wizard').style.display = db.targets.length === 0 ? 'flex' : 'none';
@@ -364,36 +376,27 @@
             const list = document.getElementById('targetList');
             list.innerHTML = db.targets.map((t, i) => {
                 const p = Math.min((t.saved/t.goal)*100, 100).toFixed(1);
-                return `
-                <div class="card reveal active">
-                    <div class="flex">
-                        <b style="font-size:18px">${t.name}</b> 
-                        <div class="flex" style="gap:12px;">
-                            <span class="badge">${p}%</span>
-                            <button class="btn-del" onclick="deleteTarget(${i})">🗑️</button>
-                        </div>
-                    </div>
-                    <div class="p-bg"><div class="p-fill" style="width:${p}%"></div></div>
-                    <div class="flex" style="font-size:12px; font-weight:700">
-                        <span>Rp ${t.saved.toLocaleString()}</span>
-                        <span style="opacity:0.5">Target Rp ${t.goal.toLocaleString()}</span>
-                    </div>
-                    <div style="font-size:10px; color:var(--accent); margin-top:12px; font-weight:800;">⚡ ${getEstimation(t)}</div>
-                </div>`;
+                const dayLabels = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
+                const schedHint = t.schedule ? t.schedule.map(d => dayLabels[d]).join(", ") : "Hari Kerja";
+                return `<div class="card reveal active"><div class="flex"><b style="font-size:18px">${t.name}</b><div class="flex" style="gap:12px;"><span class="badge">${p}%</span><button class="btn-del" onclick="deleteTarget(${i})">🗑️</button></div></div><div class="p-bg"><div class="p-fill" style="width:${p}%"></div></div><div class="flex" style="font-size:12px; font-weight:700"><span>Rp ${t.saved.toLocaleString()}</span><span style="opacity:0.5">Target Rp ${t.goal.toLocaleString()}</span></div><div class="flex" style="font-size:10px; margin-top:12px; font-weight:800;"><span style="color:var(--accent)">⚡ ${getEstimation(t)}</span><span style="opacity:0.4">📅 ${schedHint}</span></div></div>`;
             }).join('');
-            renderHeatmap(); renderLineChart();
+            renderHeatmap(); 
+            renderLineChart();
             setTimeout(reveal, 100);
         }
 
-        function renderLineChart() {
-            const ctx = document.getElementById('mainChart').getContext('2d');
-            const lastData = db.logs.slice(-10).map(l => l.v);
-            if(lineChart) lineChart.destroy();
-            lineChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels: lastData.map(()=>""), datasets: [{ data: lastData, borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16,185,129,0.1)', pointRadius: 0 }] },
-                options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { display: false } } }
-            });
+        function getEstimation(target) {
+            const remaining = target.goal - target.saved;
+            if (remaining <= 0) return "Target Tercapai! 🏆";
+            const logs = db.logs.filter(l => l.t === target.name && l.v > 0);
+            if (logs.length < 2) return "Menunggu data...";
+            const start = new Date(logs[0].d);
+            const end = new Date(logs[logs.length-1].d);
+            const days = Math.max(1, Math.round((end - start) / 86400000));
+            const total = logs.reduce((s, l) => s + l.v, 0);
+            const avg = total / days;
+            const daysLeft = Math.ceil(remaining / avg);
+            return daysLeft > 30 ? `${(daysLeft/30).toFixed(1)} Bulan lagi` : `${daysLeft} Hari lagi`;
         }
 
         function renderHeatmap() {
@@ -407,19 +410,90 @@
             }
         }
 
-        function save() { localStorage.setItem('ss_ultra_db', JSON.stringify(db)); render(); }
-        function nextStep(s) { 
-            document.querySelectorAll('.wiz-step').forEach(el => el.style.display = 'none');
-            document.getElementById('step'+s).style.display = 'block';
+        let lineChart, barChart;
+        function renderLineChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const lastData = db.logs.slice(-10).map(l => l.v);
+            if(lineChart) lineChart.destroy();
+            lineChart = new Chart(ctx, { type: 'line', data: { labels: lastData.map(()=>""), datasets: [{ data: lastData, borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16,185,129,0.1)', pointRadius: 0 }] }, options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { display: false } } } });
         }
-        function initApp() { 
-            const n = document.getElementById('oName').value, g = document.getElementById('oGoal').value;
-            if(n && g) { db.targets.push({name:n, goal:parseInt(g), saved:0}); save(); }
-        }
-        function toggleTheme() { document.body.classList.toggle('light-mode'); db.theme = document.body.classList.contains('light-mode') ? 'light' : 'dark'; save(); }
-        function deleteTarget(i) { if(confirm("Hapus target?")) { db.targets.splice(i,1); save(); } }
-        function showToast(m) { alert(m); }
 
+        function openStats() {
+            const total = db.targets.reduce((a,b)=>a+b.saved, 0);
+            document.getElementById('statTotal').innerText = `Rp ${total.toLocaleString()}`;
+            document.getElementById('statStreak').innerText = `${db.streak} Days`;
+            const hBody = document.getElementById('historyBody');
+            hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `<tr><td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td><td><b>${l.t}</b></td><td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">${l.v > 0 ? '+' : ''}${l.v.toLocaleString()}</td></tr>`).join('');
+            openModal('statsModal');
+            setTimeout(renderBarChart, 400);
+        }
+
+        function renderBarChart() {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            const dataMap = {};
+            db.logs.slice(-10).forEach(l => {
+                const d = new Date(l.d).toLocaleDateString('id-ID', {day:'2-digit'});
+                dataMap[d] = (dataMap[d] || 0) + Math.abs(l.v);
+            });
+            if(barChart) barChart.destroy();
+            barChart = new Chart(ctx, { type: 'bar', data: { labels: Object.keys(dataMap), datasets: [{ data: Object.values(dataMap), backgroundColor: '#10b981', borderRadius: 8 }] }, options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } } });
+        }
+
+        function openModal(id) {
+            const m = document.getElementById(id);
+            if(id === 'saveModal' && db.targets.length === 0) return;
+            m.style.display = 'flex';
+            setTimeout(() => m.classList.add('active'), 10);
+            if(id === 'saveModal') document.getElementById('saveTo').innerHTML = db.targets.map((t,i) => `<option value="${i}">${t.name}</option>`).join('');
+        }
+
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            m.classList.remove('active');
+            setTimeout(() => m.style.display = 'none', 300);
+        }
+
+        function doAddTarget() {
+            const n = document.getElementById('ntName').value, g = document.getElementById('ntGoal').value;
+            const activeDays = Array.from(document.querySelectorAll('#targetDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
+            if(n && g && activeDays.length > 0) {
+                db.targets.push({name:n, goal:parseInt(g), saved:0, schedule: activeDays});
+                save(); closeModal('targetModal');
+                document.getElementById('ntName').value = ''; document.getElementById('ntGoal').value = '';
+            } else { alert("Lengkapi data!"); }
+        }
+
+        function handleExport(type) {
+            if(type === 'pdf') {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text("Laporan Zenith Ultra", 10, 10);
+                const data = db.targets.map(t => [t.name, t.saved, t.goal]);
+                doc.autoTable({ head: [['Target', 'Tersimpan', 'Goal']], body: data });
+                doc.save('Zenith-Report.pdf');
+            } else {
+                let csv = "Nama,Tersimpan,Target\n";
+                db.targets.forEach(t => { csv += `${t.name},${t.saved},${t.goal}\n` });
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = 'Zenith-Data.csv'; a.click();
+            }
+        }
+
+        function reveal() {
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
+            });
+        }
+
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        function deleteTarget(i) { if(confirm("Hapus target?")) { db.targets.splice(i,1); save(); } }
+        function backupData() { navigator.clipboard.writeText(btoa(JSON.stringify(db))); alert("Backup disalin!"); }
+        function restoreData() { const c = prompt("Kode?"); if(c) { try { db = JSON.parse(atob(c)); save(); location.reload(); } catch(e) { alert("Kode tidak valid!"); } } }
+
+        window.addEventListener("scroll", reveal);
+        validateStreak();
         render();
     </script>
 </body>
