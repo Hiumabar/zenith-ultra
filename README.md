@@ -11,7 +11,6 @@
   <a href="https://github.com/Hiumabar">
     <img src="https://img.shields.io/github/stars/Hiumabar?style=for-the-badge"/>
   </a>
-  <img src="https://img.shields.io/github/last-commit/Hiumabar?style=for-the-badge"/>
 </p>
 
 ---
