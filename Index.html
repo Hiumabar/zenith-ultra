@@ -83,6 +83,8 @@
         .day-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0; }
         .day-opt { padding: 10px 5px; border-radius: 12px; background: var(--sec); font-size: 11px; font-weight: bold; cursor: pointer; border: 2px solid transparent; }
         .day-opt.active { background: rgba(16, 185, 129, 0.2); border-color: var(--prim); color: var(--prim); }
+
+        .modal-section-title { font-size: 11px; opacity: 0.5; letter-spacing: 1.5px; margin: 20px 0 10px 0; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -153,15 +155,23 @@
 
     <div id="exportModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-top:0">Data Portofolio</h3>
-            <button class="btn btn-prim" onclick="openShare()" style="margin-bottom:12px; background:linear-gradient(45deg, #10b981, #3b82f6); color:white; width: 100%;">🔗 Bagikan Pencapaian (Card)</button>
-            <button class="btn btn-sec" onclick="shareWebsite()" style="margin-bottom:12px; border: 1px solid var(--prim); width: 100%;">🌐 Bagikan Link Website</button>
+            <h3 style="margin-top:0">Manajemen Data</h3>
+            
+            <div class="modal-section-title">Data Portofolio</div>
             <button class="btn btn-prim" onclick="handleExport('pdf')" style="margin-bottom:12px; background:#ef4444; color:white; width: 100%;">📕 Ekspor PDF Premium</button>
             <button class="btn btn-prim" onclick="handleExport('excel')" style="margin-bottom:12px; background:#10b981; color:black; width: 100%;">📗 Ekspor Excel</button>
-            <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
-            <h4 style="margin:0 0 10px 0">Cloud Backup</h4>
+            
+            <div class="modal-section-title">Cloud Backup</div>
             <button class="btn btn-sec" onclick="backupData()" style="width:100%; margin-bottom:10px;">📤 Salin Backup Kode</button>
-            <button class="btn btn-sec" onclick="restoreData()" style="width:100%;">📥 Pulihkan Data</button>
+            <button class="btn btn-sec" onclick="downloadJSON()" style="width:100%; margin-bottom:10px;">📄 Simpan File JSON</button>
+            
+            <input type="file" id="importFile" style="display:none" accept=".json" onchange="handleFileImport(event)">
+            <button class="btn btn-sec" onclick="triggerRestore()" style="width:100%; border: 1px dashed var(--prim);">📥 Pulihkan Data (File/Kode)</button>
+
+            <div class="modal-section-title">Share</div>
+            <button class="btn btn-prim" onclick="openShare()" style="margin-bottom:12px; background:linear-gradient(45deg, #10b981, #3b82f6); color:white; width: 100%;">🔗 Bagikan Pencapaian (Card)</button>
+            <button class="btn btn-sec" onclick="shareWebsite()" style="margin-bottom:12px; border: 1px solid var(--prim); width: 100%;">🌐 Bagikan Link Website</button>
+
             <button class="btn btn-sec" onclick="closeModal('exportModal')" style="width:100%; margin-top:20px; border-radius: 100px;">Tutup</button>
         </div>
     </div>
@@ -287,7 +297,6 @@
             } else { alert("Pilih minimal 1 hari menabung!"); }
         }
 
-        // --- NEW SHARE FUNCTIONS ---
         function shareWebsite() {
             if (navigator.share) {
                 navigator.share({
@@ -325,7 +334,6 @@
             link.click();
             area.style.transform = "rotateX(5deg)";
         }
-        // ---------------------------
 
         function validateStreak() {
             if (!db.lastDate || db.streak === 0) return;
@@ -489,8 +497,77 @@
 
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function deleteTarget(i) { if(confirm("Hapus target?")) { db.targets.splice(i,1); save(); } }
-        function backupData() { navigator.clipboard.writeText(btoa(JSON.stringify(db))); alert("Backup disalin!"); }
-        function restoreData() { const c = prompt("Kode?"); if(c) { try { db = JSON.parse(atob(c)); save(); location.reload(); } catch(e) { alert("Kode tidak valid!"); } } }
+        
+        // --- FITUR BACKUP DISEMPURNAKAN ---
+        
+        function backupData() { 
+            try {
+                const base64Data = btoa(JSON.stringify(db));
+                navigator.clipboard.writeText(base64Data).then(() => {
+                    alert("✅ Kode backup berhasil disalin ke clipboard!");
+                });
+            } catch (e) {
+                alert("❌ Gagal membuat kode backup.");
+            }
+        }
+
+        function downloadJSON() {
+            const dataStr = JSON.stringify(db, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const dlAnchor = document.createElement('a');
+            dlAnchor.href = url;
+            dlAnchor.download = `Zenith_Backup_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            document.body.removeChild(dlAnchor);
+            URL.revokeObjectURL(url);
+        }
+
+        function triggerRestore() {
+            const choice = confirm("Klik 'OK' untuk masukkan KODE BACKUP, atau 'Cancel' untuk pilih FILE JSON.");
+            if (choice) {
+                const code = prompt("Tempel kode backup (Base64) di sini:");
+                if (code) {
+                    try {
+                        processRestore(atob(code));
+                    } catch(e) {
+                        alert("❌ Kode tidak valid!");
+                    }
+                }
+            } else {
+                document.getElementById('importFile').click();
+            }
+        }
+
+        function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                processRestore(e.target.result);
+            };
+            reader.readAsText(file);
+        }
+
+        function processRestore(jsonString) {
+            try {
+                const importedData = JSON.parse(jsonString);
+                if (importedData.targets && Array.isArray(importedData.targets)) {
+                    if (confirm("⚠️ Semua data saat ini akan diganti. Lanjutkan?")) {
+                        db = importedData;
+                        localStorage.setItem('ss_ultra_db', JSON.stringify(db));
+                        alert("✅ Data berhasil dipulihkan!");
+                        location.reload();
+                    }
+                } else {
+                    throw new Error("Format data tidak sesuai.");
+                }
+            } catch (e) {
+                alert("❌ Error: Format backup tidak valid!");
+            }
+            document.getElementById('importFile').value = '';
+        }
 
         window.addEventListener("scroll", reveal);
         validateStreak();
