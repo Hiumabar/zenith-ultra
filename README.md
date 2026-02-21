@@ -1,93 +1,100 @@
-# 🚀 Zenith Save Ultra
-### Smart Saving. Smart Future.
+<h1 align="center">💎 Zenith Save Ultra</h1>
+<h3 align="center">Bangun Kebiasaan. Capai Tujuan. Wujudkan Masa Depan.</h3>
 
 <p align="center">
-  <a href="https://zenith-ultra-save.netlify.app/" target="_blank">
-    <img src="https://img.shields.io/badge/Visit-Zenith%20Save%20Ultra-0A0A0A?style=for-the-badge&logo=vercel&logoColor=white" />
+  <a href="https://zenith-ultra-save.netlify.app/">
+    <img src="https://img.shields.io/badge/Kunjungi%20Website-Zenith%20Save%20Ultra-111111?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
 </p>
 
 ---
 
-## 💎 About Zenith Save Ultra
+## 🚀 Tentang Zenith Save Ultra
 
-**Zenith Save Ultra** adalah platform manajemen tabungan digital yang dirancang untuk membantu pengguna membangun kebiasaan finansial yang disiplin, terstruktur, dan modern.
+**Zenith Save Ultra** adalah platform digital manajemen tabungan yang dirancang untuk membantu kamu mengatur keuangan dengan cara yang lebih terstruktur, modern, dan efisien.
 
-Kami percaya bahwa menabung bukan sekadar menyimpan uang —  
-tetapi membangun fondasi masa depan yang kuat.
+Kami mengubah konsep menabung dari sekadar aktivitas biasa menjadi sebuah **sistem progres yang terukur dan memotivasi**.
 
-Dengan pendekatan minimalis, sistem progres yang terukur, dan pengalaman pengguna yang intuitif, Zenith Save Ultra menghadirkan cara baru dalam mengelola tujuan finansial.
+Dengan tampilan minimalis, performa ringan, dan pengalaman pengguna yang intuitif, Zenith Save Ultra membantu kamu:
 
----
-
-## 🎯 Why Choose Zenith Save Ultra?
-
-✔️ Interface modern & responsif  
-✔️ Sistem target tabungan terstruktur  
-✔️ Monitoring progres real-time  
-✔️ Membangun habit finansial positif  
-✔️ Cocok untuk pelajar, mahasiswa, dan profesional muda  
-
-Zenith Save Ultra bukan hanya website.  
-Ini adalah langkah awal menuju kebebasan finansial.
+- 🎯 Menetapkan target tabungan yang jelas  
+- 📊 Melacak progres secara real-time  
+- 💡 Membentuk kebiasaan finansial yang konsisten  
+- 📈 Mengelola perencanaan masa depan dengan lebih cerdas  
 
 ---
 
-## 🌐 Live Website
+## ✨ Mengapa Memilih Zenith Save Ultra?
+
+Di era digital, pengelolaan keuangan harus:
+
+✔️ Cepat  
+✔️ Praktis  
+✔️ Transparan  
+✔️ Terukur  
+
+Zenith Save Ultra hadir sebagai solusi bagi pelajar, mahasiswa, maupun profesional muda yang ingin memiliki kontrol penuh atas tujuan finansial mereka.
+
+Ini bukan hanya tentang menabung.  
+Ini tentang membangun **disiplin finansial jangka panjang**.
+
+---
+
+## 🌐 Akses Sekarang
 
 🔗 https://zenith-ultra-save.netlify.app/
 
-Mulai perjalanan menabungmu sekarang.
+Mulai perjalanan finansialmu hari ini.
 
 ---
 
-# 📱 Connect With Us
+# 📱 Terhubung Bersama Kami
 
 <p align="center">
 
-<a href="https://instagram.com/nextterrastudio" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="40" />
+<a href="https://instagram.com/nextterrastudio">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="40"/>
 </a>
 
-<a href="https://tiktok.com/@nextterrastudio" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" width="40" />
+<a href="https://tiktok.com/@nextterrastudio">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" width="40"/>
 </a>
 
-<a href="https://x.com/nextterrastudio" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" width="40" />
+<a href="https://x.com/nextterrastudio">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" width="40"/>
 </a>
 
-<a href="https://github.com/Hiumabar" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" width="40" />
+<a href="https://github.com/Hiumabar">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" width="40"/>
 </a>
 
 </p>
 
 ---
 
-# 📩 Contact
+# 📩 Kontak & Kolaborasi
 
 <p align="center">
-  
-📧 <b>nextterrastudio@gmail.com</b>  
-✨ Business & Collaboration Inquiries Welcome  
-🚀 Let’s build something impactful together.
+
+📧 <b>✉ nextterrastudio@gmail.com ✨</b>  
+💼 Terbuka untuk kerja sama, pengembangan proyek, dan kolaborasi digital.  
+🚀 Mari ciptakan inovasi bersama.
 
 </p>
 
 ---
 
-# 🏢 Developed By
+# 🏢 Dikembangkan Oleh
 
-**Next Terra Studio**  
-Creative Digital Innovation Lab  
-Focused on Web Development, App Development & Game Development
+### 🌍 Next Terra Studio  
+Creative Digital Innovation  
+Spesialis Web • Aplikasi • Game Development  
 
 ---
 
 <p align="center">
-  
-⭐ If you like this project, give it a star on GitHub!  
-💡 Smart Saving Starts Today.
+
+⭐ Dukung proyek ini dengan memberikan star di GitHub  
+💎 Smart Saving Starts Here  
 
 </p>
