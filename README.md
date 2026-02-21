@@ -117,28 +117,19 @@ Digital Innovation & Product Development
 
 ---
 
-# 🌍 Connect With Us
+### 🌐 Let's connect with us
 
-<p align="center">
-
-<a href="https://instagram.com/nextterrastudio">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="40"/>
-</a>
-
-<a href="https://tiktok.com/@nextterrastudio">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" width="40"/>
-</a>
-
-<a href="https://x.com/nextterrastudio">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" width="40"/>
-</a>
-
-<a href="https://github.com/Hiumabar">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" width="40"/>
-</a>
-
+<p align="left">
+  <a href="https://github.com/Hiumabar" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://www.instagram.com/nextterrastudio" target="_blank">
+    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" />
+  </a>
+  <a href="mailto:nextterrastudio@gmail.com" target="_blank">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
 </p>
-
 ---
 
 <p align="center">
