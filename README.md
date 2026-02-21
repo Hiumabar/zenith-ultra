@@ -14,13 +14,22 @@
   <img src="https://img.shields.io/badge/Status-Active-00E5FF?style=for-the-badge"/>
 </p>
 
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=Hiumabar&label=Profile%20Views&color=00E5FF&style=for-the-badge"/>
+  <img src="https://img.shields.io/github/followers/Hiumabar?style=for-the-badge"/>
+</p>
+
+<p align="center">
+  <a href="https://discord.gg/PrPKfQezbp">
+    <img src="https://img.shields.io/discord/1344615572645613609?style=for-the-badge&logo=discord&label=Discord%20Community&color=5865F2"/>
+  </a>
+</p>
+
 ---
 
 # 🧠 Executive Summary
 
 **Zenith Save Ultra** adalah *financial discipline engine* berbasis web yang dirancang untuk membentuk kebiasaan finansial melalui sistem target yang terstruktur, visual progres yang presisi, dan pendekatan minimalis berorientasi hasil.
-
-Platform ini dibangun dengan satu filosofi utama:
 
 > Disiplin finansial bukan bakat.  
 > Disiplin adalah sistem.
@@ -60,8 +69,6 @@ Membangun ekosistem manajemen finansial digital yang membantu generasi muda meng
 **Deployment:** Netlify Infrastructure  
 **Version Control:** GitHub Repository  
 **Core Language:** HTML5 • CSS3 • JavaScript  
-
-Dirancang untuk skalabilitas dan pengembangan fitur lanjutan.
 
 ---
 
@@ -105,31 +112,36 @@ Own the outcome.
 
 ---
 
-# 🤝 Strategic Contact
+# 📬 Strategic Contact
 
-<p align="center">
-
-📧 <b>nextterrastudio@gmail.com</b>  
-🏢 Next Terra Studio  
-Digital Innovation & Product Development  
-
-</p>
+📧 **nextterrastudio@gmail.com**  
+🏢 Next Terra Studio — Digital Innovation Lab  
 
 ---
 
-### 🌐 Let's connect with us
+## 🌐 Let's Connect
 
 <p align="left">
   <a href="https://github.com/Hiumabar" target="_blank">
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
   </a>
-  <a href="https://www.instagram.com/nextterrastudio" target="_blank">
+  <a href="https://discord.gg/PrPKfQezbp" target="_blank">
+    <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+  </a>
+  <a href="https://instagram.com/nextterrastudio" target="_blank">
     <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" />
+  </a>
+  <a href="https://tiktok.com/@nextterrastudio" target="_blank">
+    <img src="https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white" />
+  </a>
+  <a href="https://x.com/nextterrastudio" target="_blank">
+    <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" />
   </a>
   <a href="mailto:nextterrastudio@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
   </a>
 </p>
+
 ---
 
 <p align="center">
