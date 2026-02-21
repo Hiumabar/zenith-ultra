@@ -1,98 +1,123 @@
-<h1 align="center">💎 Zenith Save Ultra</h1>
+<h1 align="center">ZENITH SAVE ULTRA</h1>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=25&duration=3000&color=00F0FF&center=true&vCenter=true&width=600&lines=Bangun+Kebiasaan+Finansial+Disiplin;Kelola+Target+Dengan+Presisi;Smart+Saving+Starts+Here" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=3000&color=00E5FF&center=true&vCenter=true&width=800&lines=Financial+Discipline+Engine;Build+Habits.+Track+Progress.+Own+Your+Future.;Next+Generation+Saving+Platform" />
 </p>
 
 <p align="center">
   <a href="https://zenith-ultra-save.netlify.app/">
-    <img src="https://img.shields.io/badge/Kunjungi%20Website-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Launch%20Platform-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
   <a href="https://github.com/Hiumabar">
-    <img src="https://img.shields.io/github/stars/Hiumabar?style=for-the-badge"/>
+    <img src="https://img.shields.io/github/stars/Hiumabar?style=for-the-badge&color=0A0A0A"/>
   </a>
+  <img src="https://img.shields.io/badge/Status-Active-00E5FF?style=for-the-badge"/>
 </p>
 
 ---
 
-# 🚀 Tentang Zenith Save Ultra
+# 🧠 Executive Summary
 
-**Zenith Save Ultra** adalah platform manajemen tabungan berbasis web yang dirancang untuk membangun kebiasaan finansial yang terstruktur, terukur, dan modern.
+**Zenith Save Ultra** adalah *financial discipline engine* berbasis web yang dirancang untuk membentuk kebiasaan finansial melalui sistem target yang terstruktur, visual progres yang presisi, dan pendekatan minimalis berorientasi hasil.
 
-Kami menggabungkan desain minimalis, sistem progres visual, dan pendekatan disiplin berbasis target untuk menciptakan pengalaman menabung yang:
+Platform ini dibangun dengan satu filosofi utama:
 
-- 🎯 Terarah  
-- 📊 Transparan  
-- ⚡ Efisien  
-- 💡 Memotivasi  
+> Disiplin finansial bukan bakat.  
+> Disiplin adalah sistem.
 
-Zenith Save Ultra bukan sekadar aplikasi.  
-Ini adalah sistem pembentukan disiplin finansial.
+Zenith Save Ultra menciptakan sistem tersebut.
 
 ---
 
-# 🎯 Visi & Misi
+# 🎯 Vision
 
-## 🌍 Visi
-Menjadi platform manajemen tabungan digital yang membantu generasi muda membangun fondasi finansial yang kuat dan berkelanjutan.
-
-## 🎯 Misi
-- Menghadirkan sistem target menabung yang terukur  
-- Mendorong disiplin finansial melalui visual progres  
-- Menyediakan pengalaman pengguna yang ringan & modern  
-- Membangun kesadaran finansial sejak dini  
+Membangun ekosistem manajemen finansial digital yang membantu generasi muda menguasai kebiasaan keuangan sejak dini dan mencapai stabilitas jangka panjang.
 
 ---
 
-# 🛠 Tech Stack
+# 🚀 Mission
+
+- Menciptakan sistem target saving yang measurable & actionable  
+- Meningkatkan awareness finansial berbasis visual data  
+- Menyediakan platform ringan, cepat, dan scalable  
+- Menjadi fondasi menuju produk fintech yang lebih besar  
+
+---
+
+# 🛠 Technology Stack
 
 <p align="center">
 
-<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/html5.svg" width="40"/>
-<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/css3.svg" width="40"/>
-<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/javascript.svg" width="40"/>
-<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/netlify.svg" width="40"/>
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/html5.svg" width="45"/>
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/css3.svg" width="45"/>
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/javascript.svg" width="45"/>
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/netlify.svg" width="45"/>
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" width="45"/>
 
 </p>
 
-**Frontend:** HTML5, CSS3, JavaScript  
-**Deployment:** Netlify  
-**Version Control:** Git & GitHub  
+**Architecture:** Frontend Static Web Application  
+**Deployment:** Netlify Infrastructure  
+**Version Control:** GitHub Repository  
+**Core Language:** HTML5 • CSS3 • JavaScript  
+
+Dirancang untuk skalabilitas dan pengembangan fitur lanjutan.
 
 ---
 
-# 📊 Statistik Pengembangan
+# 📊 Development Metrics
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Hiumabar&show_icons=true&theme=tokyonight"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=Hiumabar&show_icons=true&theme=tokyonight&hide_border=true"/>
   <br/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Hiumabar&theme=tokyonight"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Hiumabar&theme=tokyonight&hide_border=true"/>
 </p>
 
 ---
 
-# 🗺 Roadmap Pengembangan
+# 🗺 Strategic Roadmap
 
-- ✅ Sistem target tabungan dasar  
-- ✅ Visualisasi progres  
-- 🔄 Integrasi sistem notifikasi  
-- 🔄 Dashboard statistik lanjutan  
-- ⏳ Versi mobile optimization lanjutan  
-- ⏳ Fitur multi-target & export data  
+### Phase 1 — Core System
+- Target saving system
+- Progress visualization
+- Clean minimal dashboard
+
+### Phase 2 — Optimization
+- Advanced analytics
+- Multi-target management
+- Export data capability
+
+### Phase 3 — Expansion
+- Account system
+- Cloud sync
+- Notification engine
+- Potential fintech integration
 
 ---
 
-# 🌐 Akses Platform
+# 🌐 Live Platform
 
 🔗 https://zenith-ultra-save.netlify.app/
 
-Bangun kebiasaan.  
-Kelola tujuan.  
-Capai hasil.
+Build the habit.  
+Track the growth.  
+Own the outcome.
 
 ---
 
-# 📱 Terhubung Bersama Kami
+# 🤝 Strategic Contact
+
+<p align="center">
+
+📧 <b>nextterrastudio@gmail.com</b>  
+🏢 Next Terra Studio  
+Digital Innovation & Product Development  
+
+</p>
+
+---
+
+# 🌍 Connect With Us
 
 <p align="center">
 
@@ -116,21 +141,9 @@ Capai hasil.
 
 ---
 
-# 📩 Kontak Profesional
-
 <p align="center">
 
-📧 ✨ <b>nextterrastudio@gmail.com</b> ✨  
-💼 Kolaborasi • Pengembangan • Diskusi Proyek  
-🚀 Next Terra Studio — Digital Innovation Lab  
-
-</p>
-
----
-
-<p align="center">
-
-⭐ Dukung proyek ini dengan memberikan Star di GitHub  
-💎 Disiplin Hari Ini, Stabilitas Esok Hari  
+⚡ Zenith Save Ultra is not just a tool.  
+It is a system for disciplined growth.
 
 </p>
