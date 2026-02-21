@@ -17,7 +17,6 @@
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=Hiumabar&label=Profile%20Views&color=00E5FF&style=for-the-badge"/>
   <img src="https://img.shields.io/github/followers/Hiumabar?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/license/Hiumabar?style=for-the-badge"/>
 </p>
 
 <p align="center">
@@ -47,10 +46,10 @@ Membangun ekosistem manajemen finansial digital yang membantu generasi muda meng
 
 # 🚀 Mission
 
-- Sistem target saving yang measurable & actionable  
-- Awareness finansial berbasis visual data  
-- Platform ringan, cepat, scalable  
-- Fondasi menuju ekspansi fintech  
+- Menciptakan sistem target saving yang measurable & actionable  
+- Meningkatkan awareness finansial berbasis visual data  
+- Menyediakan platform ringan, cepat, dan scalable  
+- Menjadi fondasi menuju produk fintech yang lebih besar  
 
 ---
 
@@ -66,50 +65,40 @@ Membangun ekosistem manajemen finansial digital yang membantu generasi muda meng
 
 </p>
 
-**Architecture:** Static Frontend Web App  
+**Architecture:** Frontend Static Web Application  
 **Deployment:** Netlify Infrastructure  
-**Version Control:** GitHub  
-**Core:** HTML5 • CSS3 • JavaScript  
+**Version Control:** GitHub Repository  
+**Core Language:** HTML5 • CSS3 • JavaScript  
 
 ---
 
-# 📊 Development Analytics
+# 📊 Development Metrics
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Hiumabar&show_icons=true&theme=tokyonight&hide_border=true"/>
   <br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Hiumabar&theme=tokyonight&hide_border=true"/>
-  <br/>
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Hiumabar&theme=tokyo-night&hide_border=true"/>
-</p>
-
----
-
-# 🐍 Contribution Activity
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Hiumabar/Hiumabar/output/github-contribution-grid-snake-dark.svg" alt="snake animation"/>
 </p>
 
 ---
 
 # 🗺 Strategic Roadmap
 
-### Phase 1 — Core
+### Phase 1 — Core System
 - Target saving system
 - Progress visualization
-- Minimal dashboard
+- Clean minimal dashboard
 
 ### Phase 2 — Optimization
 - Advanced analytics
 - Multi-target management
-- Export data
+- Export data capability
 
 ### Phase 3 — Expansion
-- User accounts
-- Cloud synchronization
+- Account system
+- Cloud sync
 - Notification engine
-- Fintech ecosystem integration
+- Potential fintech integration
 
 ---
 
