@@ -220,10 +220,16 @@
             <div id="contact-success" style="display:none; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--prim); color: var(--prim); padding: 15px; border-radius: 16px; margin-bottom: 20px; text-align: center;">
                 <i class="fas fa-check-circle"></i> Pesan berhasil dikirim!
             </div>
-            <form id="zenith-contact-form">
-                <input type="text" name="name" placeholder="Nama Lengkap" required>
-                <input type="email" name="email" placeholder="Email Anda" required>
-                <textarea name="message" rows="4" placeholder="Tulis pesan Anda di sini..." required style="resize: none;"></textarea>
+            <form 
+  id="zenith-contact-form"
+  action="https://formspree.io/f/xgolneye"
+  method="POST"
+>
+
+<input type="hidden" name="_subject" value="Pesan Baru dari Zenith Ultra">
+                <input type="text" name="Nama" placeholder="Nama Lengkap" required>
+                <input type="email" name="Email" placeholder="Email Anda" required>
+                <textarea name="Pesan" rows="4" placeholder="Tulis pesan Anda di sini..." required style="resize: none;"></textarea>
                 <button type="submit" id="btn-submit-contact" class="btn btn-prim" style="width:100%">Kirim Pesan Sekarang</button>
             </form>
             <div class="modal-section-title" style="text-align: center; margin-top:20px;">Social Media</div>
@@ -871,15 +877,33 @@ window.onclick = function(event) {
         closeModal(event.target.id);
     }
 }
-document.getElementById('zenith-contact-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Mencegah halaman reload
-    document.getElementById('contact-success').style.display = 'block';
-    setTimeout(() => {
-        document.getElementById('contact-success').style.display = 'none';
-    }, 3000);
-    this.reset(); // Mengosongkan form
-});
+document.getElementById('zenith-contact-form')
+.addEventListener('submit', async function(e) {
+    e.preventDefault();
 
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            document.getElementById('contact-success').style.display = 'block';
+            form.reset();
+            showToast("Pesan berhasil dikirim!", "📨");
+        } else {
+            showToast("Gagal mengirim pesan!", "❌");
+        }
+    } catch (error) {
+        showToast("Terjadi kesalahan jaringan!", "⚠️");
+    }
+});
 </script>
 </body>
 </html>
