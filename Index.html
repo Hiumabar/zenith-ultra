@@ -465,8 +465,8 @@
 </div>
 
 <script>
-/* --- DATABASE INITIALIZATION --- */
-let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || { 
+/* --- DATABASE INITIALIZATION & TEMPLATE --- */
+const defaultDbTemplate = { 
     targets: [], 
     logs: [], 
     streak: 0, 
@@ -474,9 +474,29 @@ let db = JSON.parse(localStorage.getItem('ss_ultra_db')) || {
     theme: 'dark'
 };
 
+let db = JSON.parse(localStorage.getItem('ss_ultra_db'));
+if (!db) {
+    db = { ...defaultDbTemplate };
+} else {
+    // Fix: Object Merging untuk memastikan struktur DB lama tetap kompatibel dengan update fitur baru
+    db = { ...defaultDbTemplate, ...db };
+}
+
 // Global state untuk pagination
 let currentPage = 1;
 const itemsPerPage = 3;
+
+/* --- SYSTEM SECURITY & HELPERS --- */
+// Fix Celah Keamanan Self-XSS
+function escapeHTML(str) {
+    if (!str) return "";
+    return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag] || tag));
+}
+
+// Fix: Pembuatan ID Absolut dengan Randomizer
+const generateUID = () => Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 
 /* --- SYSTEM POPUP & TOAST --- */
 function showToast(msg, icon = '✅') {
@@ -509,7 +529,6 @@ function nextStep(s) {
     const n = document.getElementById('oName').value;
     const g = parseInt(document.getElementById('input_oGoal').value);
     
-    // Validasi input di step 3
     if(s === 3 && (!n || !g || g <= 0)) return showToast("Isi nama target dan nominal lebih dari Rp0!", "❌");
     
     document.querySelectorAll('.wiz-step').forEach(el => el.style.display = 'none'); 
@@ -517,12 +536,12 @@ function nextStep(s) {
 }
 
 function initApp() { 
-    const n = document.getElementById('oName').value;
+    const n = escapeHTML(document.getElementById('oName').value);
     const g = parseInt(document.getElementById('input_oGoal').value);
     const activeDays = Array.from(document.querySelectorAll('#wizDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
     
     if(n && g > 0 && activeDays.length > 0) { 
-        db.targets.push({name:n, goal:g, saved:0, schedule: activeDays, id: Date.now()}); 
+        db.targets.push({name:n, goal:g, saved:0, schedule: activeDays, id: generateUID()}); 
         save(); 
         document.getElementById('wizard').style.display = 'none';
         showToast("Sistem Zenith Diaktifkan!", "🚀");
@@ -549,20 +568,24 @@ function toggleTheme() {
 /* --- CORE TRANSACTIONS --- */
 function handleSaveAction() {
     const idx = document.getElementById('saveTo').value;
-    let amt = parseInt(document.getElementById('saveAmt').value);
-    if(!amt || amt <= 0) return showToast("Masukkan nominal valid", "❗");
+    let rawAmt = parseInt(document.getElementById('saveAmt').value);
     
+    if(!rawAmt || rawAmt === 0) return showToast("Masukkan nominal valid", "❗");
+    
+    let amt = Math.abs(rawAmt); 
     const type = document.getElementById('saveType').value;
+    
     if(type === 'out') {
         if(db.targets[idx].saved < amt) { showToast("Saldo Tidak Cukup", "❌"); return; }
-        amt = -amt;
+        db.targets[idx].saved -= amt;
+    } else {
+        db.targets[idx].saved += amt;
     }
     
-    db.targets[idx].saved += amt;
     const now = new Date();
     const todayStr = now.toDateString();
     
-    if(amt > 0) {
+    if(type === 'in') {
         const targetSchedule = db.targets[idx].schedule || [1,2,3,4,5];
         if (db.lastDate !== todayStr && targetSchedule.includes(now.getDay())) {
             db.streak++;
@@ -570,11 +593,17 @@ function handleSaveAction() {
         }
     }
     
-    db.logs.push({ d: new Date().toISOString(), v: amt, t: db.targets[idx].name });
+    db.logs.push({ 
+        d: now.toISOString(), 
+        v: type === 'out' ? -amt : amt, 
+        t: db.targets[idx].name, 
+        tId: db.targets[idx].id
+    });
+    
     closeModal('saveModal');
     document.getElementById('saveAmt').value = '';
     save();
-    showToast(amt > 0 ? "Tabungan Berhasil!" : "Penarikan Berhasil!", amt > 0 ? "💰" : "💸");
+    showToast(type === 'in' ? "Tabungan Berhasil!" : "Penarikan Berhasil!", type === 'in' ? "💰" : "💸");
 }
 
 function doAddTarget() {
@@ -583,7 +612,7 @@ function doAddTarget() {
     const activeDays = Array.from(document.querySelectorAll('#targetDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
     
     if(n && g > 0 && activeDays.length > 0) {
-        db.targets.push({name:n, goal:g, saved:0, schedule: activeDays, id: Date.now()});
+        db.targets.push({name: escapeHTML(n), goal:g, saved:0, schedule: activeDays, id: generateUID()});
         save(); 
         closeModal('targetModal');
         document.getElementById('ntName').value = ''; 
@@ -595,7 +624,10 @@ function doAddTarget() {
 }
 
 function deleteTarget(realIndex) { 
-    showConfirm("Hapus Target?", "Data tabungan pada target ini akan hilang permanen.", "🗑️", () => {
+    const target = db.targets[realIndex];
+    showConfirm("Hapus Target?", "Data tabungan dan histori transaksi target ini akan hilang permanen.", "🗑️", () => {
+        db.logs = db.logs.filter(l => !(l.tId === target.id || (!l.tId && l.t === target.name)));
+        
         db.targets.splice(realIndex, 1);
         const maxPage = Math.ceil(db.targets.length / itemsPerPage) || 1;
         if (currentPage > maxPage) currentPage = maxPage;
@@ -624,14 +656,15 @@ function render() {
 
     list.innerHTML = paginatedTargets.map((t, i) => {
         const realIndex = startIndex + i;
-        const p = Math.min((t.saved/t.goal)*100, 100).toFixed(1);
+        const p = Math.max(0, Math.min((t.saved/t.goal)*100, 100)).toFixed(1);
         const dayLabels = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
         const schedHint = t.schedule ? t.schedule.map(d => dayLabels[d]).join(", ") : "Hari Kerja";
+        const safeName = escapeHTML(t.name);
         
         return `
             <div class="card reveal active">
                 <div class="flex">
-                    <b style="font-size:18px">${t.name}</b>
+                    <b style="font-size:18px">${safeName}</b>
                     <div class="flex" style="gap:12px;">
                         <span class="badge">${p}%</span>
                         <button class="btn-del" onclick="deleteTarget(${realIndex})">🗑️</button>
@@ -685,7 +718,9 @@ function changePage(p) {
 function getEstimation(target) {
     const remaining = target.goal - target.saved;
     if (remaining <= 0) return "Target Tercapai! 🏆";
-    const logs = db.logs.filter(l => l.t === target.name && l.v > 0);
+    
+    const logs = db.logs.filter(l => (l.tId === target.id || (!l.tId && l.t === target.name)) && l.v > 0);
+    
     if (logs.length < 2) return "Menunggu data...";
     const start = new Date(logs[0].d);
     const end = new Date(logs[logs.length-1].d);
@@ -708,8 +743,10 @@ function renderHeatmap() {
     const logMap = {};
     db.logs.forEach(l => {
         const dateStr = new Date(l.d).toDateString();
-        if(!logMap[dateStr]) logMap[dateStr] = 0;
-        logMap[dateStr] += l.v;
+        // Fix: Lacak frekuensi interaksi dan nilai absolut untuk menghindari "Net-Zero Anomaly"
+        if(!logMap[dateStr]) logMap[dateStr] = { val: 0, count: 0 };
+        logMap[dateStr].val += l.v;
+        logMap[dateStr].count += 1;
     });
     
     for(let i=0; i<21; i++) {
@@ -718,17 +755,17 @@ function renderHeatmap() {
         const dateStr = d.toDateString(); 
         const displayDate = d.toLocaleDateString('id-ID', {day: 'numeric', month: 'short'}); 
         
-        const dayTotal = logMap[dateStr] || 0;
-        const hasActivity = dayTotal !== 0;
+        const dayData = logMap[dateStr] || { val: 0, count: 0 };
+        const hasActivity = dayData.count > 0;
         
         const c = document.createElement('div');
         c.className = 'cell' + (hasActivity ? ' active' : '');
         
         c.onclick = () => {
             if (hasActivity) {
-                const icon = dayTotal >= 0 ? '📈' : '📉';
-                const status = dayTotal >= 0 ? 'Nabung' : 'Tarik';
-                showToast(`${displayDate} | ${status} Rp ${Math.abs(dayTotal).toLocaleString()}`, icon);
+                const icon = dayData.val >= 0 ? '📈' : '📉';
+                const status = dayData.val >= 0 ? 'Net Positif' : 'Net Negatif';
+                showToast(`${displayDate} | ${dayData.count} Trx (Net: Rp ${Math.abs(dayData.val).toLocaleString()})`, icon);
             } else {
                 showToast(`${displayDate} | Belum ada aktivitas`, '💤');
             }
@@ -752,7 +789,7 @@ function openStats() {
     document.getElementById('statTotal').innerText = `Rp ${total.toLocaleString()}`;
     document.getElementById('statStreak').innerText = `${db.streak} Days`;
     const hBody = document.getElementById('historyBody');
-    hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `<tr><td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td><td><b>${l.t}</b></td><td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">${l.v > 0 ? '+' : ''}${l.v.toLocaleString()}</td></tr>`).join('');
+    hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `<tr><td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td><td><b>${escapeHTML(l.t)}</b></td><td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">${l.v > 0 ? '+' : ''}${l.v.toLocaleString()}</td></tr>`).join('');
     openModal('statsModal');
     setTimeout(renderBarChart, 400);
 }
@@ -761,7 +798,7 @@ function renderBarChart() {
     const ctx = document.getElementById('barChart').getContext('2d');
     const dataMap = {};
     db.logs.slice(-10).forEach(l => {
-        const d = new Date(l.d).toLocaleDateString('id-ID', {day:'2-digit'});
+        const d = new Date(l.d).toLocaleDateString('id-ID', {day:'2-digit', month:'short'});
         dataMap[d] = (dataMap[d] || 0) + Math.abs(l.v);
     });
     if(barChart) barChart.destroy();
@@ -805,7 +842,6 @@ async function downloadShareCard() {
     const originalText = btn.innerHTML;
     
     area.style.transform = "none";
-    
     btn.disabled = true;
     btn.innerHTML = "⏳ Memproses...";
 
@@ -878,7 +914,7 @@ function handleExport(type) {
         showToast("PDF Berhasil Dibuat");
     } else {
         let csv = "Nama,Tersimpan,Target\n";
-        db.targets.forEach(t => { csv += `"${t.name}",${t.saved},${t.goal}\n` });
+        db.targets.forEach(t => { csv += `"${escapeHTML(t.name)}",${t.saved},${t.goal}\n` });
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -936,7 +972,8 @@ function processRestore(jsonString) {
         const data = JSON.parse(jsonString);
         if (data && Array.isArray(data.targets) && Array.isArray(data.logs)) {
             showConfirm("Konfirmasi Restore", "Data saat ini akan dihapus dan diganti dengan data cadangan. Lanjutkan?", "⚠️", () => {
-                db = data;
+                // Fix: Object Merging mencegah crash jika struktur JSON lama kurang variabel baru
+                db = { ...defaultDbTemplate, ...data };
                 save();
                 showToast("Sistem Berhasil Dipulihkan!", "✅");
                 setTimeout(() => location.reload(), 1000);
@@ -955,7 +992,7 @@ function openModal(id) {
     if(id === 'saveModal' && db.targets.length === 0) return showToast("Buat target dulu!", "🎯");
     m.style.display = 'flex';
     setTimeout(() => m.classList.add('active'), 10);
-    if(id === 'saveModal') document.getElementById('saveTo').innerHTML = db.targets.map((t,i) => `<option value="${i}">${t.name}</option>`).join('');
+    if(id === 'saveModal') document.getElementById('saveTo').innerHTML = db.targets.map((t,i) => `<option value="${i}">${escapeHTML(t.name)}</option>`).join('');
 }
 
 function closeModal(id) {
@@ -991,18 +1028,34 @@ function validateStreak() {
     const now = new Date();
     now.setHours(0,0,0,0); last.setHours(0,0,0,0);
     if(last.getTime() === now.getTime()) return;
-    let allScheduledDays = new Set();
-    db.targets.forEach(t => { if(t.schedule) t.schedule.forEach(d => allScheduledDays.add(d)); });
-    let checkDate = new Date(last);
-    checkDate.setDate(checkDate.getDate() + 1);
-    while(checkDate < now) {
-        if(allScheduledDays.has(checkDate.getDay())) { 
-            db.streak = 0; 
-            save(); 
-            showToast("Streak Terputus!", "🔥");
-            return; 
-        }
+    
+    // Fix: Streak mengecek per-target. Jika ada SATU SAJA target yang belum lewat batas jadwalnya, streak global dipertahankan.
+    let allMissed = true;
+    for(let t of db.targets) {
+        let missedForThisTarget = false;
+        let tSched = new Set(t.schedule || [1,2,3,4,5]);
+        
+        let checkDate = new Date(last);
         checkDate.setDate(checkDate.getDate() + 1);
+        
+        while(checkDate < now) {
+            if(tSched.has(checkDate.getDay())) { 
+                missedForThisTarget = true;
+                break; 
+            }
+            checkDate.setDate(checkDate.getDate() + 1);
+        }
+        
+        if(!missedForThisTarget) {
+            allMissed = false; // Ada minimal 1 target yang masih on-track
+            break;
+        }
+    }
+
+    if((allMissed && db.targets.length > 0) || db.targets.length === 0) {
+        db.streak = 0; 
+        save(); 
+        showToast("Streak Terputus!", "🔥");
     }
 }
 
@@ -1012,7 +1065,6 @@ validateStreak();
 if(db.theme === 'light') document.body.classList.add('light-mode');
 render();
 
-// Fitur tambahan: Close modal dengan klik di luar area content
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
         closeModal(event.target.id);
@@ -1045,6 +1097,7 @@ document.getElementById('zenith-contact-form').addEventListener('submit', async 
         showToast("Terjadi kesalahan jaringan!", "⚠️");
     }
 });
+
 </script>
 </body>
 </html>
