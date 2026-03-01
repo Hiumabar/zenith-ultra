@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zenith Ultra - Arsitektur Finansial Masa Depan</title>
-    <meta name="description" content="Zenith Ultra: Aplikasi manajemen keuangan cerdas dengan sistem tracking streak, heatmap aktivitas, dan analisis portofolio premium.">
     
+    <meta name="description" content="Zenith Ultra: Aplikasi manajemen keuangan cerdas dengan sistem tracking streak, heatmap aktivitas, dan analisis portofolio premium.">
+    <meta name="author" content="Zenith Ultra Team">
+    <meta name="google-site-verification" content="HuH731if_mx1v-_UBpD2SQ61c2JBhEEctxXELLG40sc" />
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://zenith-ultra-save.netlify.app/"> 
     <meta property="og:title" content="Zenith Ultra - Arsitektur Finansial Masa Depan">
@@ -13,21 +16,25 @@
     <meta property="og:image" content="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
 
     <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zenith-ultra-save.netlify.app/">
     <meta property="twitter:title" content="Zenith Ultra - Arsitektur Finansial Masa Depan">
     <meta property="twitter:description" content="Kelola keuanganmu dengan arsitektur masa depan di Zenith Ultra!">
     <meta property="twitter:image" content="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
 
-    <meta name="google-site-verification" content="HuH731if_mx1v-_UBpD2SQ61c2JBhEEctxXELLG40sc" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
+    <link rel="shortcut icon" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#10b981">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" type="image/png" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co.com/0RBWMkhm/1772351178191.png">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="apple-mobile-web-app-title" content="Zenith Ultra">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -210,7 +217,7 @@
         <h2>Target Utama</h2>
         <p style="font-size:14px; opacity:0.6;">Apa impian besar pertama yang ingin dicapai?</p>
         <input type="text" id="oName" placeholder="Contoh: Dana Darurat">
-        <input type="number" id="input_oGoal" placeholder="Target Nominal (Rp)" min="1">
+        <input type="text" inputmode="numeric" id="input_oGoal" placeholder="Target Nominal (Rp)" oninput="formatRupiah(this)">
         <button class="btn btn-prim" onclick="nextStep(3)" style="margin: 10px auto; width: 100%; border-radius: 100px;">Lanjut</button>
     </div>
     <div class="wiz-step" id="step3" style="display:none">
@@ -240,7 +247,7 @@
     <div class="flex reveal" style="margin-bottom:20px; padding-top: 10px;">
         <h2 onclick="showPage('home')" style="margin:0; letter-spacing:-1.5px; font-weight: 900; font-size: 24px; cursor:pointer;">ZENITH ULTRA<span style="color:var(--prim)">.</span></h2>
         <div class="flex" style="gap:10px;">
-            <div class="badge streak-badge">🔥 <span id="stkVal">0</span> DAYS</div>
+           <div class="badge streak-badge" style="cursor: pointer;" onclick="openStreakAnalysis()">🔥 <span id="stkVal">0</span> DAYS</div>
             <button onclick="toggleTheme()" class="btn btn-sec" style="padding:0; border-radius:50%; width:44px; height:44px; border: none; background: var(--card);">🌓</button>
         </div>
     </div>
@@ -412,7 +419,8 @@
             <option value="out">💸 Keluar (Tarik)</option>
         </select>
         <select id="saveTo"></select>
-        <input type="number" id="saveAmt" placeholder="Jumlah Rp" inputmode="numeric" min="1">
+        <input type="text" inputmode="numeric" id="saveAmt" placeholder="Jumlah Rp" oninput="formatRupiah(this)">
+
         <button class="btn btn-prim" onclick="handleSaveAction()" style="width: 100%;">Proses Transaksi</button>
         <button class="btn btn-sec" onclick="closeModal('saveModal')" style="width:100%; margin-top:12px; border-radius: 100px;">Batal</button>
     </div>
@@ -422,7 +430,7 @@
     <div class="modal-content">
         <h3 style="margin-top:0">🎯 Target Baru</h3>
         <input type="text" id="ntName" placeholder="Nama Barang">
-        <input type="number" id="ntGoal" placeholder="Target Dana" min="1">
+      <input type="text" inputmode="numeric" id="ntGoal" placeholder="Target Dana" oninput="formatRupiah(this)">
         <p style="font-size: 12px; opacity: 0.6; margin-bottom: 8px;">Pilih Hari Menabung:</p>
         <div class="day-selector" id="targetDayPicker">
             <div class="day-opt active" onclick="this.classList.toggle('active')" data-day="1">Senin</div>
@@ -463,13 +471,52 @@
         </div>
     </div>
 </div>
+<div id="promptModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-top:0">📥 Pulihkan dari Kode</h3>
+        <p style="font-size: 14px; opacity: 0.7;">Tempel kode backup (Base64) Anda di bawah ini:</p>
+        <textarea id="promptInput" rows="4" placeholder="Paste kode di sini..." style="resize:none;"></textarea>
+        <button class="btn btn-prim" onclick="submitRestoreCode()" style="width: 100%;">Proses Pemulihan</button>
+        <button class="btn btn-sec" onclick="closeModal('promptModal')" style="width:100%; margin-top:12px; border-radius: 100px;">Batal</button>
+    </div>
+</div>
 
+<div id="streakModal" class="modal">
+    <div class="modal-content">
+        <div class="flex">
+            <h3 style="margin:0; color: #f59e0b;">🔥 Analisis Streak</h3>
+            <button class="btn-del" onclick="closeModal('streakModal')" style="font-size: 24px;">×</button>
+        </div>
+        <p style="font-size: 13px; opacity: 0.7; margin-top: 5px;">Pertahankan konsistensi menabung Anda sesuai jadwal target!</p>
+        <div class="stats-grid" style="margin-top:20px;">
+            <div class="stat-item" style="border-color: #f59e0b;">
+                <div class="stat-label" style="color: #f59e0b;">STREAK SAAT INI</div>
+                <div class="stat-val" id="sa_current" style="color: #f59e0b; font-size: 24px;">0 Hari</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">REKOR TERTINGGI</div>
+                <div class="stat-val" id="sa_highest" style="font-size: 24px;">0 Hari</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="a2hsModal" class="modal">
+    <div class="modal-content" style="text-align:center;">
+        <div style="font-size: 50px; margin-bottom: 10px;">📱</div>
+        <h3 style="margin-top:0">Install Zenith Ultra</h3>
+        <p style="font-size: 14px; opacity: 0.7; margin-bottom: 20px;">Tambahkan Zenith ke Home Screen perangkat Anda untuk akses instan dan pengalaman offline penuh.</p>
+        <button class="btn btn-prim" id="btnInstallApp" style="width: 100%;">Install Sekarang</button>
+        <button class="btn btn-sec" onclick="closeModal('a2hsModal')" style="width:100%; margin-top:12px; border-radius: 100px;">Nanti Saja</button>
+    </div>
+</div>
 <script>
 /* --- DATABASE INITIALIZATION & TEMPLATE --- */
 const defaultDbTemplate = { 
     targets: [], 
     logs: [], 
     streak: 0, 
+    bestStreak: 0, // Properti baru untuk rekor streak
     lastDate: null, 
     theme: 'dark'
 };
@@ -478,7 +525,7 @@ let db = JSON.parse(localStorage.getItem('ss_ultra_db'));
 if (!db) {
     db = { ...defaultDbTemplate };
 } else {
-    // Fix: Object Merging untuk memastikan struktur DB lama tetap kompatibel dengan update fitur baru
+    // Object Merging untuk memastikan struktur DB lama tetap kompatibel
     db = { ...defaultDbTemplate, ...db };
 }
 
@@ -486,8 +533,22 @@ if (!db) {
 let currentPage = 1;
 const itemsPerPage = 3;
 
+/* --- INPUT FORMATTERS --- */
+function formatRupiah(input) {
+    let value = input.value.replace(/[^,\d]/g, '').toString();
+    if(value) {
+        input.value = parseInt(value, 10).toLocaleString('id-ID');
+    } else {
+        input.value = '';
+    }
+}
+
+function getNominal(id) {
+    let val = document.getElementById(id).value.replace(/\./g, '');
+    return parseInt(val, 10) || 0;
+}
+
 /* --- SYSTEM SECURITY & HELPERS --- */
-// Fix Celah Keamanan Self-XSS
 function escapeHTML(str) {
     if (!str) return "";
     return str.replace(/[&<>'"]/g, tag => ({
@@ -495,7 +556,6 @@ function escapeHTML(str) {
     }[tag] || tag));
 }
 
-// Fix: Pembuatan ID Absolut dengan Randomizer
 const generateUID = () => Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 
 /* --- SYSTEM POPUP & TOAST --- */
@@ -527,7 +587,7 @@ function closeConfirm(result) {
 /* --- APP WIZARD LOGIC --- */
 function nextStep(s) { 
     const n = document.getElementById('oName').value;
-    const g = parseInt(document.getElementById('input_oGoal').value);
+    const g = getNominal('input_oGoal');
     
     if(s === 3 && (!n || !g || g <= 0)) return showToast("Isi nama target dan nominal lebih dari Rp0!", "❌");
     
@@ -537,7 +597,7 @@ function nextStep(s) {
 
 function initApp() { 
     const n = escapeHTML(document.getElementById('oName').value);
-    const g = parseInt(document.getElementById('input_oGoal').value);
+    const g = getNominal('input_oGoal');
     const activeDays = Array.from(document.querySelectorAll('#wizDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
     
     if(n && g > 0 && activeDays.length > 0) { 
@@ -568,7 +628,7 @@ function toggleTheme() {
 /* --- CORE TRANSACTIONS --- */
 function handleSaveAction() {
     const idx = document.getElementById('saveTo').value;
-    let rawAmt = parseInt(document.getElementById('saveAmt').value);
+    let rawAmt = getNominal('saveAmt');
     
     if(!rawAmt || rawAmt === 0) return showToast("Masukkan nominal valid", "❗");
     
@@ -608,7 +668,7 @@ function handleSaveAction() {
 
 function doAddTarget() {
     const n = document.getElementById('ntName').value;
-    const g = parseInt(document.getElementById('ntGoal').value);
+    const g = getNominal('ntGoal');
     const activeDays = Array.from(document.querySelectorAll('#targetDayPicker .day-opt.active')).map(el => parseInt(el.dataset.day));
     
     if(n && g > 0 && activeDays.length > 0) {
@@ -643,8 +703,19 @@ function save() {
 }
 
 function render() {
-    document.getElementById('wizard').style.display = db.targets.length === 0 ? 'flex' : 'none';
+    // FIX: Reset state wizard jika target kosong
+    if (db.targets.length === 0) {
+        document.getElementById('wizard').style.display = 'flex';
+        document.querySelectorAll('.wiz-step').forEach(el => el.style.display = 'none');
+        document.getElementById('step1').style.display = 'block';
+        document.getElementById('oName').value = '';
+        document.getElementById('input_oGoal').value = '';
+    } else {
+        document.getElementById('wizard').style.display = 'none';
+    }
+    
     document.getElementById('stkVal').innerText = db.streak;
+
     
     const list = document.getElementById('targetList');
     const pagin = document.getElementById('targetPagination');
@@ -672,8 +743,8 @@ function render() {
                 </div>
                 <div class="p-bg"><div class="p-fill" style="width:${p}%"></div></div>
                 <div class="flex" style="font-size:12px; font-weight:700">
-                    <span>Rp ${t.saved.toLocaleString()}</span>
-                    <span style="opacity:0.5">Target Rp ${t.goal.toLocaleString()}</span>
+                    <span>Rp ${t.saved.toLocaleString('id-ID')}</span>
+                    <span style="opacity:0.5">Target Rp ${t.goal.toLocaleString('id-ID')}</span>
                 </div>
                 <div class="flex" style="font-size:10px; margin-top:12px; font-weight:800;">
                     <span style="color:var(--accent)">⚡ ${getEstimation(t)}</span>
@@ -743,7 +814,6 @@ function renderHeatmap() {
     const logMap = {};
     db.logs.forEach(l => {
         const dateStr = new Date(l.d).toDateString();
-        // Fix: Lacak frekuensi interaksi dan nilai absolut untuk menghindari "Net-Zero Anomaly"
         if(!logMap[dateStr]) logMap[dateStr] = { val: 0, count: 0 };
         logMap[dateStr].val += l.v;
         logMap[dateStr].count += 1;
@@ -764,8 +834,7 @@ function renderHeatmap() {
         c.onclick = () => {
             if (hasActivity) {
                 const icon = dayData.val >= 0 ? '📈' : '📉';
-                const status = dayData.val >= 0 ? 'Net Positif' : 'Net Negatif';
-                showToast(`${displayDate} | ${dayData.count} Trx (Net: Rp ${Math.abs(dayData.val).toLocaleString()})`, icon);
+                showToast(`${displayDate} | ${dayData.count} Trx (Net: Rp ${Math.abs(dayData.val).toLocaleString('id-ID')})`, icon);
             } else {
                 showToast(`${displayDate} | Belum ada aktivitas`, '💤');
             }
@@ -786,10 +855,10 @@ function renderLineChart() {
 
 function openStats() {
     const total = db.targets.reduce((a,b)=>a+b.saved, 0);
-    document.getElementById('statTotal').innerText = `Rp ${total.toLocaleString()}`;
+    document.getElementById('statTotal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
     document.getElementById('statStreak').innerText = `${db.streak} Days`;
     const hBody = document.getElementById('historyBody');
-    hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `<tr><td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td><td><b>${escapeHTML(l.t)}</b></td><td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">${l.v > 0 ? '+' : ''}${l.v.toLocaleString()}</td></tr>`).join('');
+    hBody.innerHTML = db.logs.slice().reverse().slice(0, 15).map(l => `<tr><td style="opacity:0.5">${new Date(l.d).toLocaleDateString('id-ID',{day:'2-digit', month:'short'})}</td><td><b>${escapeHTML(l.t)}</b></td><td style="text-align:right; color:${l.v > 0 ? 'var(--prim)' : 'var(--danger)'}">${l.v > 0 ? '+' : ''}${l.v.toLocaleString('id-ID')}</td></tr>`).join('');
     openModal('statsModal');
     setTimeout(renderBarChart, 400);
 }
@@ -824,7 +893,7 @@ function openShare() {
     const total = db.targets.reduce((a,b)=>a+b.saved, 0);
     const primaryTarget = db.targets[0] ? db.targets[0].name : "Zenith User";
     
-    document.getElementById('sT_assets').innerText = `Rp ${total.toLocaleString()}`;
+    document.getElementById('sT_assets').innerText = `Rp ${total.toLocaleString('id-ID')}`;
     document.getElementById('sT_streak').innerText = `${db.streak} DAYS`;
     document.getElementById('sT_title').innerText = primaryTarget.toUpperCase();
     document.getElementById('sT_tier').innerText = total > 1000000 ? "PLATINUM" : "GOLD MEMBER";
@@ -908,7 +977,7 @@ function handleExport(type) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         doc.text("Laporan Zenith Ultra", 10, 10);
-        const data = db.targets.map(t => [t.name, `Rp ${t.saved.toLocaleString()}`, `Rp ${t.goal.toLocaleString()}`]);
+        const data = db.targets.map(t => [t.name, `Rp ${t.saved.toLocaleString('id-ID')}`, `Rp ${t.goal.toLocaleString('id-ID')}`]);
         doc.autoTable({ head: [['Target', 'Tersimpan', 'Goal']], body: data });
         doc.save('Zenith-Report.pdf');
         showToast("PDF Berhasil Dibuat");
@@ -947,14 +1016,23 @@ function downloadJSON() {
 }
 
 function restoreFromCode() {
-    const code = prompt("Tempel kode backup (Base64) Anda di sini:");
+    document.getElementById('promptInput').value = '';
+    closeModal('exportModal');
+    openModal('promptModal');
+}
+
+function submitRestoreCode() {
+    const code = document.getElementById('promptInput').value;
     if (code) {
         try {
             const decoded = decodeURIComponent(escape(atob(code)));
+            closeModal('promptModal');
             processRestore(decoded);
         } catch(e) { 
             showToast("Kode tidak valid atau rusak!", "❌"); 
         }
+    } else {
+        showToast("Masukkan kode terlebih dahulu!", "⚠️");
     }
 }
 
@@ -972,7 +1050,6 @@ function processRestore(jsonString) {
         const data = JSON.parse(jsonString);
         if (data && Array.isArray(data.targets) && Array.isArray(data.logs)) {
             showConfirm("Konfirmasi Restore", "Data saat ini akan dihapus dan diganti dengan data cadangan. Lanjutkan?", "⚠️", () => {
-                // Fix: Object Merging mencegah crash jika struktur JSON lama kurang variabel baru
                 db = { ...defaultDbTemplate, ...data };
                 save();
                 showToast("Sistem Berhasil Dipulihkan!", "✅");
@@ -1012,6 +1089,8 @@ function closeModal(id) {
                 if(day >= 1 && day <= 5) el.classList.add('active'); 
                 else el.classList.remove('active');
             });
+        } else if (id === 'promptModal') {
+            document.getElementById('promptInput').value = '';
         }
     }, 300);
 }
@@ -1022,6 +1101,13 @@ function reveal() {
     });
 }
 
+/* --- STREAK LOGIC --- */
+function openStreakAnalysis() {
+    document.getElementById('sa_current').innerText = `${db.streak} Hari`;
+    document.getElementById('sa_highest').innerText = `${db.bestStreak || db.streak} Hari`;
+    openModal('streakModal');
+}
+
 function validateStreak() {
     if (!db.lastDate || db.streak === 0) return;
     const last = new Date(db.lastDate);
@@ -1029,37 +1115,43 @@ function validateStreak() {
     now.setHours(0,0,0,0); last.setHours(0,0,0,0);
     if(last.getTime() === now.getTime()) return;
     
-    // Fix: Streak mengecek per-target. Jika ada SATU SAJA target yang belum lewat batas jadwalnya, streak global dipertahankan.
-    let allMissed = true;
-    for(let t of db.targets) {
-        let missedForThisTarget = false;
-        let tSched = new Set(t.schedule || [1,2,3,4,5]);
-        
-        let checkDate = new Date(last);
-        checkDate.setDate(checkDate.getDate() + 1);
-        
-        while(checkDate < now) {
-            if(tSched.has(checkDate.getDay())) { 
-                missedForThisTarget = true;
-                break; 
-            }
+          let anyMissed = false;
+        for(let t of db.targets) {
+            let tSched = new Set(t.schedule || [1,2,3,4,5]);
+            
+            let checkDate = new Date(last);
             checkDate.setDate(checkDate.getDate() + 1);
+            
+            while(checkDate < now) {
+                if(tSched.has(checkDate.getDay())) { 
+                    anyMissed = true; // Jika ada 1 saja jadwal target yang terlewat
+                    break; 
+                }
+                checkDate.setDate(checkDate.getDate() + 1);
+            }
+            
+            if(anyMissed) {
+                break; // Keluar dari loop utama jika sudah ketahuan ada yang bolong
+            }
         }
-        
-        if(!missedForThisTarget) {
-            allMissed = false; // Ada minimal 1 target yang masih on-track
-            break;
-        }
-    }
 
-    if((allMissed && db.targets.length > 0) || db.targets.length === 0) {
-        db.streak = 0; 
+               if((anyMissed && db.targets.length > 0) || db.targets.length === 0) {
+        // FIX: Simpan rekor tertinggi sebelum di-reset
+        if (!db.bestStreak || db.streak > db.bestStreak) db.bestStreak = db.streak;
+        
+        db.streak = 0; // FIX: Reset angka streak menjadi 0
         save(); 
         showToast("Streak Terputus!", "🔥");
+    } else {
+
+        if (!db.bestStreak || db.streak > db.bestStreak) {
+            db.bestStreak = db.streak;
+            save();
+        }
     }
 }
 
-/* --- INITIALIZATION --- */
+/* --- INITIALIZATION & EVENTS --- */
 window.addEventListener("scroll", reveal);
 validateStreak();
 if(db.theme === 'light') document.body.classList.add('light-mode');
@@ -1073,7 +1165,6 @@ window.onclick = function(event) {
 
 document.getElementById('zenith-contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-
     const form = e.target;
     const data = new FormData(form);
 
@@ -1081,9 +1172,7 @@ document.getElementById('zenith-contact-form').addEventListener('submit', async 
         const response = await fetch(form.action, {
             method: "POST",
             body: data,
-            headers: {
-                'Accept': 'application/json'
-            }
+            headers: { 'Accept': 'application/json' }
         });
 
         if (response.ok) {
@@ -1098,6 +1187,32 @@ document.getElementById('zenith-contact-form').addEventListener('submit', async 
     }
 });
 
+/* --- PWA: SERVICE WORKER & ADD TO HOME SCREEN --- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Zenith Ultra PWA Aktif!'))
+      .catch(err => console.log('PWA Gagal:', err));
+  });
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    setTimeout(() => {
+        openModal('a2hsModal');
+    }, 3000); 
+});
+
+document.getElementById('btnInstallApp').addEventListener('click', async () => {
+    closeModal('a2hsModal');
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+    }
+});
 </script>
-</body>
-</html>
