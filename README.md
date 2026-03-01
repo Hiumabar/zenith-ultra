@@ -17,7 +17,7 @@
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=Hiumabar&label=Profile%20Views&color=00E5FF&style=for-the-badge"/>
   <img src="https://img.shields.io/github/followers/Hiumabar?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/license/Hiumabar?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/License-MIT-00E5FF?style=for-the-badge&logo=open-source-initiative&logoColor=black"/>
 </p>
 
 <p align="center">
