@@ -3,7 +3,7 @@ const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  'https://i.ibb.co.com/PLCqHHz/app-icon.png',
+  'https://i.ibb.co.com/0RBWMkhm/1772351178191.png',
   'https://cdn.jsdelivr.net/npm/chart.js',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
 ];
