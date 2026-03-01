@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "SaveSmart Zenith Ultra",
+  "short_name": "Zenith Ultra",
+  "description": "Arsitektur Finansial Masa Depan - Kelola tabungan dan portofolio dengan cerdas.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#10b981",
+  "orientation": "portrait",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {
+      "src": "https://i.ibb.co.com/0RBWMkhm/1772351178191.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.ibb.co.com/0RBWMkhm/1772351178191.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.ibb.co.com/0RBWMkhm/1772351178191.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
